@@ -1,0 +1,15 @@
+{
+  "name": "ropieee-be",
+  "version": "0.1.0",
+  "description": "Roon Extension to interface with Chrome",
+  "main": "app.js",
+  "author": "Spockfish",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "jade": "^1.11.0",
+    "module": "^1.2.5",
+    "morgan": "^1.8.1"
+  }
+}
