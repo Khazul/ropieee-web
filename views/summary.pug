@@ -1,0 +1,36 @@
+html
+  head
+    title=title
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+  body
+    div.container
+      div.jumbotron
+        h1 Welcome to Ropieee!
+      div
+        h5 Here's a summary of your settings. When you're sure you can commit these.
+        br
+        br
+      div
+      block content
+        h4= title
+
+      form(id='config2' name='config' action='/commit', method='post')
+         table(id='my-test-table' border='0')
+            tr
+               th(width='100') Setting
+               th(width='100') Value
+            tr
+               td Hostname
+               td 
+                  value= config_rp_hostname
+                  input(name='hostname', type='hidden', value= config_rp_hostname)
+            tr
+               td Reboot time
+               td 
+                  value= config_rp_reboottime
+                  input(name='reboot_time', type='hidden', value= config_rp_reboottime)
+ 
+         br
+         input(type='submit', value='Commit Changes')
+      //button(type='button', text='aap' value='Cancel' onclick="alert('Hello world!')")
+      button(type='button', value='cancel', target='_blank', onclick="location.href='/';") Cancel
