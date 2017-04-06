@@ -4,7 +4,6 @@ var ini = require('ini');
 const SETTINGS_READ = "./settings.ini";
 const SETTINGS_WRITE = "./settings.ini.new";
 
-
 module.exports = {
   read: function() {
      var out = {}
@@ -24,11 +23,3 @@ module.exports = {
      fs.writeFileSync(SETTINGS_WRITE, ini.stringify(p, {}));
   }
 };
-        
-
-
-// read ini file
-//var config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
-//console.dir(Object.keys(config));
-//console.log(config.rp_hostname);
-

@@ -35,7 +35,8 @@ app.post('/submit', function(req, res) {
 app.post('/commit', function( req, res) {
    console.log('commiting changes...');
    console.log(req.body.hostname);
-   res.send('Commit page');
+   //res.send('Commit page');
+   res.render('commit', {});
    config.write( req.body.hostname, req.body.reboot_time );
 });
 
