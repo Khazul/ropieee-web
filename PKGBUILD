@@ -2,7 +2,7 @@
 
 pkgname=ropieee-be
 pkgver=1
-pkgrel=4
+pkgrel=5
 arch=(any)
 url="http://www.kernel.org/"
 license=('MIT')
