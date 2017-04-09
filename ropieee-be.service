@@ -1,0 +1,14 @@
+[Unit]
+Description=Ropieee web frontend
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/ropieee-be/app.js
+Restart=always
+RestartSec=10                       # Restart service after 10 seconds if node service crashes
+SyslogIdentifier=ropieee-be
+Environment=NODE_PORT=80 NODE_SETTINGS=/etc/ropieee.conf
+
+[Install]
+WantedBy=multi-user.target
+

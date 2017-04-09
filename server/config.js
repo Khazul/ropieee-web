@@ -1,7 +1,7 @@
 var fs = require('fs');
 var ini = require('ini');
 
-const SETTINGS_READ = "./settings.ini";
+const SETTINGS_READ = process.env.NODE_SETTINGS || './settings.ini';
 const SETTINGS_WRITE = "./settings.ini.new";
 
 module.exports = {

@@ -1,5 +1,6 @@
 const hostname = '0.0.0.0';
-const port = 3000;
+const port = process.env.NODE_PORT || 3000;
+const env = process.env;
 
 var express = require('express');
 var morgan = require('morgan');
@@ -44,5 +45,7 @@ console.log(settings.rp_hostname);
 console.log(settings.rp_reboottime);
 
 // let's go!
-app.listen(port, hostname);
+app.listen(port, hostname, () => {
+   console.log("Server running at http://" + hostname + ":" + port + "/");
+});
 
