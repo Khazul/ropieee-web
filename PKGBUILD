@@ -25,3 +25,5 @@ echo "package"
    install -m0644 "../server/package.json"        "${pkgdir}/opt/ropieee-be/package.json"
 }
 
+
+
