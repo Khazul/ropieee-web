@@ -1,7 +1,7 @@
 {
-  "name": "ropieee-be",
-  "version": "0.1.0",
-  "description": "Roon Extension to interface with Chrome",
+  "name": "ropieee-web",
+  "version": "1.0.0",
+  "description": "Web interface to configure RoPieee",
   "main": "app.js",
   "author": "Spockfish",
   "license": "Apache-2.0",
