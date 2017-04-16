@@ -2,7 +2,7 @@
 
 pkgname=ropieee-web
 pkgver=1
-pkgrel=8
+pkgrel=9
 arch=(any)
 url="http://www.kernel.org/"
 license=('MIT')
@@ -28,7 +28,3 @@ echo "package"
    install -m0644 "../server/views/home.pug"      "${pkgdir}/opt/ropieee-web/server/views/home.pug"
    install -m0644 "../server/views/summary.pug"   "${pkgdir}/opt/ropieee-web/server/views/summary.pug"
 }
-
-
-
-

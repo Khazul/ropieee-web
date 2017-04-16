@@ -1,5 +1,5 @@
 post_install()
 {
-   cd /opt/ropieee-be/server
+   cd /opt/ropieee-web/server
    npm install
 }
