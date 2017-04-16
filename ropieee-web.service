@@ -3,11 +3,11 @@ Description=Ropieee web frontend
 After=network.target
 
 [Service]
-WorkingDirectory=/opt/ropieee-be/server
-ExecStart=/usr/bin/node /opt/ropieee-be/server/app.js
+WorkingDirectory=/opt/ropieee-web/server
+ExecStart=/usr/bin/node /opt/ropieee-web/server/app.js
 Restart=always
 RestartSec=10
-SyslogIdentifier=ropieee-be
+SyslogIdentifier=ropieee-web
 Environment=NODE_PORT=80 NODE_SETTINGS=/etc/ropieee.conf
 
 [Install]
