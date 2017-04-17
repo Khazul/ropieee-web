@@ -20,24 +20,26 @@ app.use(bodyParser.json());
 app.get('/', function(req, res) {
   res.render('home', {
      title: 'Welcome',
-     config_rp_hostname: settings.rp_hostname
+     config_rp_hostname: settings.rp_hostname,
+     config_rp_reboottime: settings.rp_reboottime
   });
 });
 
 app.post('/submit', function(req, res) {
   console.log(req.body.hostname);
-  console.log(req.body.reboot_time);
+  console.log(req.body.reboottime);
   res.render('summary', {
      config_rp_hostname: req.body.hostname,
-     config_rp_reboottime: req.body.reboot_time
+     config_rp_reboottime: req.body.reboottime
   });
 });
 
 app.post('/commit', function( req, res) {
    console.log('commiting changes...');
    console.log(req.body.hostname);
+   console.log(req.body.reboottime);
    res.render('commit', {});
-   config.write( req.body.hostname, req.body.reboot_time );
+   config.write( req.body.hostname, req.body.reboottime );
 });
 
 var settings = config.read();
