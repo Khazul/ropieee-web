@@ -19,7 +19,14 @@ module.exports = {
      p.rp_hostname = hostname;
      p.rp_reboottime = reboottime;
 
-     console.log('config:write: writing to ' + SETTINGS_WRITE);
-     fs.writeFileSync(SETTINGS_WRITE, ini.stringify(p, {}));
+     var tmpfile = fs.mkdtempSync('/tmp/ropieee');
+
+     console.log('tmpfile = ' + tmpfile);
+     tmpfile = tmpfile + '/settings.ini';
+     console.log('config:write: writing to ' + tmpfile);
+
+     fs.writeFileSync(tmpfile, ini.stringify(p, {}));
+
+     return tmpfile;
   }
 };

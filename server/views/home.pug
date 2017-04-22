@@ -1,3 +1,4 @@
+doctype 5
 html
   head
     title=title
@@ -12,22 +13,26 @@ html
         br
         br
       div
-      block content
-        h4= title
 
-      form(id='config' name='config' action='/submit', method='post')
-         table(id='my-test-table' border='0')
-            tr
-               th(width='100') Setting
-               th(width='100') Value
-            tr
-               td Hostname
-               td 
-                  input(name='hostname', type='text', value= config_rp_hostname)
-            tr
-               td Reboot time
-               td 
-                  input(name='reboottime', type='time', value= config_rp_reboottime)
+      form(id='config', name='config', action='/submit', method='post')
+         table.form_table(border='0')
+           thead
+               tr
+                  th(width='100') Setting
+                  th(width='200') Value
+                  th(width='150') Meaning
+               tr
+                  td Hostname
+                  td(height='50') 
+                     input(name='hostname', type='text', value= config_rp_hostname)
+                  td
+                     the name with with the Ropieee can be identified. Very useful if you have more than 1 Ropieee.
+               tr
+                  td Reboot time
+                  td(height='50') 
+                     input(name='reboottime', type='time', value= config_rp_reboottime)
+                  td
+                     every 24 hours the Ropieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
+           tbody#hCart
       
-         br
          input(type='submit', value='Commit Changes')

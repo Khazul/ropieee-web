@@ -1,6 +1,7 @@
 const hostname = '0.0.0.0';
 const port = process.env.NODE_PORT || 3000;
 const env = process.env;
+const spawn = require('child_process').spawn;
 
 var express = require('express');
 var morgan = require('morgan');
@@ -39,7 +40,15 @@ app.post('/commit', function( req, res) {
    console.log(req.body.hostname);
    console.log(req.body.reboottime);
    res.render('commit', {});
-   config.write( req.body.hostname, req.body.reboottime );
+   var tmpfile = config.write( req.body.hostname, req.body.reboottime );
+   console.log('config written to: ' + tmpfile);
+
+   // now call configure
+   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile]);
+
+   configure.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+   });
 });
 
 var settings = config.read();
