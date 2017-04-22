@@ -27,8 +27,8 @@ app.get('/', function(req, res) {
 });
 
 app.post('/submit', function(req, res) {
-  console.log(req.body.hostname);
-  console.log(req.body.reboottime);
+  console.log('submit req.body.hostname: ' + req.body.hostname);
+  console.log('submit req.body.reboottime: ' + req.body.reboottime);
   res.render('summary', {
      config_rp_hostname: req.body.hostname,
      config_rp_reboottime: req.body.reboottime
@@ -46,14 +46,18 @@ app.post('/commit', function( req, res) {
    // now call configure
    const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile]);
 
+   configure.stdout.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+
    configure.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
    });
 });
 
 var settings = config.read();
-console.log(settings.rp_hostname);
-console.log(settings.rp_reboottime);
+console.log('read config: ' + settings.rp_hostname);
+console.log('read config: ' + settings.rp_reboottime);
 
 // let's go!
 app.listen(port, hostname, () => {
