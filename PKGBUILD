@@ -1,8 +1,8 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=1
-pkgrel=11
+pkgver=2
+pkgrel=1
 arch=(any)
 url="http://www.kernel.org/"
 license=('MIT')
