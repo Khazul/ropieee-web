@@ -4,5 +4,12 @@ post_install()
    npm install
 
    systemctl daemon-reload
+   systemctl enable ropieee-web
+   systemctl start ropieee-web
+}
+
+post_upgrade()
+{
+   systemctl daemon-reload
    systemctl restart ropieee-web
 }
