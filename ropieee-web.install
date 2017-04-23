@@ -10,6 +10,9 @@ post_install()
 
 post_upgrade()
 {
+   cd /opt/RoPieee/web
+   npm install
+
    systemctl daemon-reload
    systemctl restart ropieee-web
 }
