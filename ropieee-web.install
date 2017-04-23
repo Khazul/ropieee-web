@@ -1,6 +1,6 @@
 post_install()
 {
-   cd /opt/ropieee-web/server
+   cd /opt/RoPieee/web
    npm install
 
    systemctl daemon-reload

@@ -20,19 +20,17 @@ html
                tr
                   th(width='100') Setting
                   th(width='200') Value
-                  th(width='150') Meaning
+                  th Meaning
                tr
                   td Hostname
                   td(height='50') 
                      input(name='hostname', type='text', pattern='[A-Za-z0-9]+', value= config_rp_hostname)
-                  td
-                     the name with with the Ropieee can be identified. Very useful if you have more than 1 Ropieee.
+                  td The name that identifies the Ropieee. Very useful if you have more than 1 Ropieee in your network.
                tr
                   td Reboot time
                   td(height='50') 
                      input(name='reboottime', type='time', value= config_rp_reboottime)
-                  td
-                     every 24 hours the Ropieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
+                  td Every 24 hours the Ropieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
            tbody#hCart
       
          input(type='submit', value='Commit Changes')
