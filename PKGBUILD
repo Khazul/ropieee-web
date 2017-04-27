@@ -1,10 +1,10 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=2
-pkgrel=6
+pkgver=3
+pkgrel=1
 arch=(any)
-url="http://www.kernel.org/"
+url="https://github.com/RoPieee/ropieee-web"
 license=('MIT')
 depends=('nodejs'
          'npm')
