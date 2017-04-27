@@ -29,8 +29,12 @@ html
                td 
                   value= config_rp_reboottime
                   input(name='reboottime', type='hidden', value= config_rp_reboottime)
- 
+            tr
+               td Audio
+               td
+                  value= config_rp_audio
+                  input(name='audio', type='hidden', value= config_rp_audio)
+         br
          br
          input(type='submit', value='Commit Changes')
-      //button(type='button', text='aap' value='Cancel' onclick="alert('Hello world!')")
       button(type='button', value='cancel', target='_blank', onclick="location.href='/';") Cancel

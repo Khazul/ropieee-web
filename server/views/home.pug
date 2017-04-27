@@ -31,6 +31,16 @@ html
                   td(height='50') 
                      input(name='reboottime', type='time', value= config_rp_reboottime)
                   td Every 24 hours the Ropieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
+               tr
+                  td Audio
+                  td(height='50')
+                     select(name='audio')
+                        option(value='usb')   		   USB
+                        option(value='hifiberry-amp')      HifiBerry AMP/AMP+
+                        option(value='hifiberry-dac')      HifiBerry DAC
+                        option(value='hifiberry-dacplus')  HifiBerry DAC+
+                        option(value='hifiberry-digi')     HifiBerry DIGI/DIGI+
+                        option(value='hifiberry-digi-pro') HifiBerry DIGI Pro
            tbody#hCart
       
          input(type='submit', value='Commit Changes')

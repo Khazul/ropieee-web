@@ -22,16 +22,19 @@ app.get('/', function(req, res) {
   res.render('home', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
-     config_rp_reboottime: settings.rp_reboottime
+     config_rp_reboottime: settings.rp_reboottime,
+     config_rp_audio: settings.rp_audio
   });
 });
 
 app.post('/submit', function(req, res) {
   console.log('submit req.body.hostname: ' + req.body.hostname);
   console.log('submit req.body.reboottime: ' + req.body.reboottime);
+  console.log('submit req.body.audio: ' + req.body.audio);
   res.render('summary', {
      config_rp_hostname: req.body.hostname,
-     config_rp_reboottime: req.body.reboottime
+     config_rp_reboottime: req.body.reboottime,
+     config_rp_audio: req.body.audio
   });
 });
 
@@ -39,8 +42,9 @@ app.post('/commit', function( req, res) {
    console.log('commiting changes...');
    console.log(req.body.hostname);
    console.log(req.body.reboottime);
+   console.log(req.body.audio);
    res.render('commit', {});
-   var tmpfile = config.write( req.body.hostname, req.body.reboottime );
+   var tmpfile = config.write( req.body.hostname, req.body.reboottime, req.body.audio );
    console.log('config written to: ' + tmpfile);
 
    // now call configure
@@ -58,6 +62,7 @@ app.post('/commit', function( req, res) {
 var settings = config.read();
 console.log('read config: ' + settings.rp_hostname);
 console.log('read config: ' + settings.rp_reboottime);
+console.log('read config: ' + settings.rp_audio);
 
 // let's go!
 app.listen(port, hostname, () => {
