@@ -4,7 +4,12 @@
   "description": "Web interface to configure RoPieee",
   "main": "app.js",
   "author": "Spockfish",
-  "license": "Apache-2.0",
+  "license": "MIT",
+  "homepage": "http://www.ropieee.org",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/RoPieee/ropieee-web.git"
+  },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",

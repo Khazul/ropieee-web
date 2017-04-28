@@ -4,7 +4,7 @@ pkgname=ropieee-web
 pkgver=3
 pkgrel=1
 arch=(any)
-url="http://www.kernel.org/"
+url="https://github.com/RoPieee/ropieee-web"
 license=('MIT')
 depends=('nodejs'
          'npm')
