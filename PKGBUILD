@@ -2,7 +2,7 @@
 
 pkgname=ropieee-web
 pkgver=3
-pkgrel=1
+pkgrel=2
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
 license=('MIT')
