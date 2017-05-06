@@ -2,6 +2,7 @@ const hostname = '0.0.0.0';
 const port = process.env.NODE_PORT || 3000;
 const env = process.env;
 const spawn = require('child_process').spawn;
+const os = require('os');
 
 var express = require('express');
 var morgan = require('morgan');
@@ -23,7 +24,8 @@ app.get('/', function(req, res) {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
      config_rp_reboottime: settings.rp_reboottime,
-     config_rp_audio: settings.rp_audio
+     config_rp_audio: settings.rp_audio,
+     info_rp_kernel: os.release()
   });
 });
 

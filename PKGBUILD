@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=5
+pkgver=6
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -19,7 +19,7 @@ echo "package"
    install -d "${pkgdir}/opt/RoPieee/web/views"
    install -d "${pkgdir}/etc/systemd/system"
 
-   install -m0644 "../ropieee-web.service"        "${pkgdir}/etc/systemd/system"
+   install -m0644 "../ropieee1-web.service"       "${pkgdir}/etc/systemd/system"
    install -m0644 "../server/app.js"              "${pkgdir}/opt/RoPieee/web/app.js"
    install -m0644 "../server/config.js"           "${pkgdir}/opt/RoPieee/web/config.js"
    install -m0644 "../server/npm-shrinkwrap.json" "${pkgdir}/opt/RoPieee/web/npm-shrinkwrap.json"
