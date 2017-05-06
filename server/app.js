@@ -25,7 +25,7 @@ app.get('/', function(req, res) {
      config_rp_hostname: settings.rp_hostname,
      config_rp_reboottime: settings.rp_reboottime,
      config_rp_audio: settings.rp_audio,
-     info_rp_kernel: os.release()
+     config_rp_kernel: info.kernel
   });
 });
 
@@ -65,6 +65,10 @@ var settings = config.read();
 console.log('read config: ' + settings.rp_hostname);
 console.log('read config: ' + settings.rp_reboottime);
 console.log('read config: ' + settings.rp_audio);
+
+var info = {}
+info.hostname = os.hostname();
+info.kernel = os.release();
 
 // let's go!
 app.listen(port, hostname, () => {
