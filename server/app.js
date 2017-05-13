@@ -61,6 +61,16 @@ app.post('/commit', function( req, res) {
    });
 });
 
+app.get('/shutdown', function(req, res) {
+   console.log('shutting down...');
+   res.render('shutdown', {});
+});
+
+app.get('/godown', function(req, res) {
+   console.log('down down down');
+   const godown = spawn('systemctl poweroff');
+});
+
 var settings = config.read();
 console.log('read config: ' + settings.rp_hostname);
 console.log('read config: ' + settings.rp_reboottime);
