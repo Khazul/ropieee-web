@@ -68,7 +68,15 @@ app.get('/shutdown', function(req, res) {
 
 app.get('/godown', function(req, res) {
    console.log('down down down');
-   const godown = spawn('systemctl poweroff');
+   const godown = spawn('systemctl', ['poweroff', '-i']);
+
+   godown.stdout.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+
+   godown.stderr.on('data', (data) => {
+       console.log(`stderr: ${data}`);
+    });
 });
 
 var settings = config.read();
