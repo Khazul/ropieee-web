@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
      config_rp_audio: settings.rp_audio,
      config_rp_kernel: info.kernel,
      config_rp_timezone: info.timezone,
-     config_rp_timezone_set : 'Europe/Amsterdam'
+     config_rp_timezone_set : settings.rp_timezone 
   });
 });
 
