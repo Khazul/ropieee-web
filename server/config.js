@@ -14,11 +14,12 @@ module.exports = {
      return out
   },
 
-  write: function(hostname, reboottime, audio) {
+  write: function(hostname, reboottime, audio, timezone) {
      var p = {}
      p.rp_hostname = hostname;
      p.rp_reboottime = reboottime;
      p.rp_audio = audio;
+     p.rp_timezone = timezone;
 
      var tmpfile = fs.mkdtempSync('/tmp/ropieee');
 

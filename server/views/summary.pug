@@ -25,15 +25,20 @@ html
                   value= config_rp_hostname
                   input(name='hostname', type='hidden', value= config_rp_hostname)
             tr
+               td Audio
+               td
+                  value= config_rp_audio
+                  input(name='audio', type='hidden', value= config_rp_audio)
+            tr
                td Reboot time
                td 
                   value= config_rp_reboottime
                   input(name='reboottime', type='hidden', value= config_rp_reboottime)
             tr
-               td Audio
-               td
-                  value= config_rp_audio
-                  input(name='audio', type='hidden', value= config_rp_audio)
+               td Timezone
+               td 
+                  value= config_rp_timezone
+                  input(name='timezone', type='hidden', value= config_rp_timezone)
          br
          br
          input(type='submit', value='Commit Changes')

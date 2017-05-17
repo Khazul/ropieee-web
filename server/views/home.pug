@@ -19,18 +19,13 @@ html
            thead
                tr
                   th(width='100') Setting
-                  th(width='250') Value
+                  th(width='300') Value
                   th Meaning
                tr
                   td Hostname
                   td(height='50') 
                      input(name='hostname', type='text', pattern='[A-Za-z0-9]+', title='Only letters and numbers are allowed.', value= config_rp_hostname)
                   td The name that identifies the RoPieee. Very useful if you have more than 1 RoPieee in your network.
-               tr
-                  td Reboot time
-                  td(height='50')
-                     input(name='reboottime', type='time', value= config_rp_reboottime)
-                  td Every 24 hours the RoPieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
                tr
                   td Audio
                   td(height='50')
@@ -45,6 +40,18 @@ html
                         option(value='iqaudio-dacplus',             selected=(config_rp_audio=='iqaudio-dacplus'))             IQaudIO Pi-DAC(+/Pro/Zero)
                         option(value='iqaudio-digi-wm8804-audio',   selected=(config_rp_audio=='iqaudio-digi-wm8804-audio'))   IQaudIO Digi+ 
                   td Select the audio output the RoPieee needs to use.
+               tr
+                  td Reboot time
+                  td(height='50')
+                     input(name='reboottime', type='time', value= config_rp_reboottime)
+                  td Every 24 hours the RoPieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.
+               tr
+                  td Timezone
+                  td(height='50')
+                     select(name='timezone')
+                       each val in config_rp_timezone
+                         option(value= val, selected=(config_rp_timezone_set== val)) #{val}
+                  td Select the corresponding timezone in which the RoPieee is located.
            tbody#hCart
       
          br
@@ -59,3 +66,4 @@ html
                input(name='kernelinfo', readonly='true', value= config_rp_kernel)
          div
          button(type='button', value='shutdown', target='_blank', onclick="location.href='/shutdown';") Shutdown
+         button(type='button', value='shutdown', target='_blank', onclick="location.href='/reboot';") Reboot
