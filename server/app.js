@@ -80,14 +80,15 @@ app.get('/reboot', function(req, res) {
 app.get('/godown', function(req, res) {
    console.log('down down down');
    console.log('type: ' + req.query.reboot);
+   var godown;
 
    if (req.query.reboot) {
       console.log('REBOOT');
-      const godown = spawn('systemctl', ['reboot']);
+      godown = spawn('systemctl', ['reboot']);
    }
    else {
       console.log('SHUTDOWN');
-      const godown = spawn('systemctl', ['poweroff', '-i']);
+      godown = spawn('systemctl', ['poweroff', '-i']);
    }
 
    godown.stdout.on('data', (data) => {
