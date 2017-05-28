@@ -19,6 +19,7 @@ module.exports = {
      p.rp_hostname = hostname;
      p.rp_reboottime = reboottime;
      p.rp_audio = audio;
+     p.rp_audio_usb = 1;	// prepared for future use
      p.rp_timezone = timezone;
 
      var tmpfile = fs.mkdtempSync('/tmp/ropieee');
