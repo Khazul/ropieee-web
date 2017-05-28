@@ -113,6 +113,6 @@ info.timezone = moment.tz.names();
 
 // let's go!
 app.listen(port, hostname, () => {
-   console.log("Server running at http://" + hostname + ":" + port + "/");
+   console.log("RoPieee web server running at http://" + hostname + ":" + port + "/");
 });
 
