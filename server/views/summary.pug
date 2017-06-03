@@ -17,7 +17,7 @@ html
       form(id='config2' name='config' action='/commit', method='post')
          table(id='my-test-table' border='0')
             tr
-               th(width='100') Setting
+               th(width='200') Setting
                th(width='100') Value
             tr
                td Hostname
@@ -44,6 +44,17 @@ html
                td 
                   value= config_rp_timezone
                   input(name='timezone', type='hidden', value= config_rp_timezone)
+            if (config_rp_touchscreen_detected== '1')
+               tr
+                  td Touchscreen Orientation
+                  td
+                     value= config_rp_touchscreen_orientation
+                     input(name='touchscreen_orientation', type='hidden', value= config_rp_touchscreen_orientation)
+               tr
+                  td Touchscreen Rone Zone
+                  td
+                     value= config_rp_touchscreen_zone
+                     input(name='touchscreen_zone', type='hidden', value= config_rp_touchscreen_zone)
          br
          br
          input(type='submit', value='Commit Changes')

@@ -14,13 +14,16 @@ module.exports = {
      return out
   },
 
-  write: function(hostname, reboottime, audio, audio_usb, timezone) {
+  write: function(hostname, reboottime, audio, audio_usb, timezone, touchscreen_detected, touchscreen_orientation, touchscreen_zone) {
      var p = {}
      p.rp_hostname = hostname;
      p.rp_reboottime = reboottime;
      p.rp_audio = audio;
      p.rp_audio_usb = audio_usb;
      p.rp_timezone = timezone;
+     p.rp_touchscreen_detected = touchscreen_detected;
+     p.rp_touchscreen_orientation = touchscreen_orientation;
+     p.rp_touchscreen_zone = touchscreen_zone;
 
      var tmpfile = fs.mkdtempSync('/tmp/ropieee');
 

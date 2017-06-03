@@ -60,6 +60,19 @@ html
                        each val in config_rp_timezone
                          option(value= val, selected=(config_rp_timezone_set== val)) #{val}
                   td Select the corresponding timezone in which the RoPieee is located.
+               if (config_rp_touchscreen_detected== '1') 
+                  tr
+                     td Touchscreen Orientation
+                     td(height='50')
+                        select(name='touchscreen_orientation')
+                           option(value='default', selected=(config_rp_touchscreen_orientation=='default')) Default
+                           option(value='rotated', selected=(config_rp_touchscreen_orientation=='rotated')) Rotated
+                     td If the touchscreen is upside-down then rotate it with this option.
+                  tr
+                     td Touchscreen Control Zone
+                     td(height='50')
+                        input(name='touchscreen_zone', type='text', pattern='[A-Za-z0-9]+', value= config_rp_touchscreen_zone)
+                     td Which Roon Zone should the touchscreen control. Make sure you type it *exactly* as known in Roon.
            tbody#hCart
       
          br

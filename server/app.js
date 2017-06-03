@@ -29,7 +29,10 @@ app.get('/', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_kernel: info.kernel,
      config_rp_timezone: info.timezone,
-     config_rp_timezone_set : settings.rp_timezone 
+     config_rp_timezone_set: settings.rp_timezone,
+     config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
+     config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
+     config_rp_touchscreen_zone: settings.rp_touchscreen_zone
   });
 });
 
@@ -42,12 +45,18 @@ app.post('/submit', function(req, res) {
   console.log('submit req.body.audio_usb: ' + req.body.audio_usb);
   console.log('submit req.body.reboottime: ' + req.body.reboottime);
   console.log('submit req.body.timezone: ' + req.body.timezone);
+  console.log('submit req.body.touchscreen_orientation: ' + req.body.touchscreen_orientation);
+  console.log('submit req.body.touchscreen_zone: ' + req.body.touchscreen_zone);
+
   res.render('summary', {
      config_rp_hostname: req.body.hostname,
      config_rp_audio: req.body.audio,
      config_rp_audio_usb: req.body.audio_usb,
      config_rp_reboottime: req.body.reboottime,
-     config_rp_timezone: req.body.timezone
+     config_rp_timezone: req.body.timezone,
+     config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
+     config_rp_touchscreen_orientation: req.body.touchscreen_orientation,
+     config_rp_touchscreen_zone: req.body.touchscreen_zone
   });
 });
 
@@ -58,8 +67,11 @@ app.post('/commit', function( req, res) {
    console.log(req.body.audio_usb);
    console.log(req.body.reboottime);
    console.log(req.body.timezone);
+   console.log(req.body.touchscreen_orientation);
+   console.log(req.body.touchscreen_zone);
    res.render('commit', {});
-   var tmpfile = config.write( req.body.hostname, req.body.reboottime, req.body.audio, req.body.audio_usb, req.body.timezone );
+   var tmpfile = config.write( req.body.hostname, req.body.reboottime, req.body.audio, req.body.audio_usb, 
+	                       req.body.timezone, settings.rp_touchscreen_detected, req.body.touchscreen_orientation, req.body.touchscreen_zone );
    console.log('config written to: ' + tmpfile);
 
    // now call configure
@@ -113,6 +125,9 @@ console.log('read config: ' + settings.rp_reboottime);
 console.log('read config: ' + settings.rp_audio);
 console.log('read config: ' + settings.rp_audio_usb);
 console.log('read config: ' + settings.rp_timezone);
+console.log('read config: ' + settings.rp_touchscreen_detected);
+console.log('read config: ' + settings.rp_touchscreen_orientation);
+console.log('read config: ' + settings.rp_touchscreen_zone);
 
 var info = {}
 info.hostname = os.hostname();
