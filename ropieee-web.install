@@ -11,12 +11,9 @@ post_upgrade()
    cd /opt/RoPieee/web
    npm install
 
-   # introduce audio setting
-   if [ $( grep -c rp_audio /etc/ropieee.conf ) -eq 0 ]
-   then
-      echo "rp_audio=usb" >> /etc/ropieee.conf
-   fi
-
    systemctl daemon-reload
-   systemctl restart ropieee1-web
+   if systemctl status ropieee1-web
+   then
+     systemctl restart ropieee1-web
+   fi
 }
