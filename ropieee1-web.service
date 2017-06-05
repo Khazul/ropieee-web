@@ -1,5 +1,5 @@
 [Unit]
-Description=Ropieee web frontend
+Description=RoPieee Web Page
 After=network.target
 
 [Service]
