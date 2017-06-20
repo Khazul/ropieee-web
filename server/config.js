@@ -14,10 +14,11 @@ module.exports = {
      return out
   },
 
-  write: function(hostname, reboottime, audio, audio_usb, timezone, touchscreen_detected, touchscreen_orientation, touchscreen_zone) {
+  write: function(hostname, reboottime, audio, audio_usb, timezone, touchscreen_detected, touchscreen_orientation, touchscreen_zone, auto_update) {
      var p = {}
      p.rp_hostname = hostname;
      p.rp_reboottime = reboottime;
+     p.rp_auto_update = auto_update;
      p.rp_audio = audio;
      p.rp_audio_usb = audio_usb;
      p.rp_timezone = timezone;
