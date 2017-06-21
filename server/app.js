@@ -106,6 +106,21 @@ app.get('/reboot', function(req, res) {
    res.render('reboot', {});
 });
 
+app.get('/feedback', function(req, res) {
+   console.log('sending feedback...');
+   var feedback = spawn('systemctl', ['start', 'ropieee-feedback']);
+
+   feedback.stdout.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+
+   feedback.stderr.on('data', (data) => {
+       console.log(`stderr: ${data}`);
+    });
+
+   res.render('feedback', {});
+});
+
 app.get('/godown', function(req, res) {
    console.log('down down down');
    console.log('type: ' + req.query.reboot);

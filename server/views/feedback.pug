@@ -1,0 +1,20 @@
+html
+  head
+    title=title
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+  body
+    div.container
+      div.jumbotron
+        h1 Sending feedback
+      div
+        h5 Logs have been sent to RoPieee HQ. Thanks!
+        br
+        br
+      div
+      block content
+        h4= title
+      
+      table(id='yesno')
+        tr
+          td
+            button(type='button', value='home', target='_blank', onclick="location.href='/';") Home
