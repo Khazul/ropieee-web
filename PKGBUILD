@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20170605
+pkgver=20170621
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -29,4 +29,5 @@ echo "package"
    install -m0644 "../server/views/summary.pug"   "${pkgdir}/opt/RoPieee/web/views/summary.pug"
    install -m0644 "../server/views/shutdown.pug"  "${pkgdir}/opt/RoPieee/web/views/shutdown.pug"
    install -m0644 "../server/views/reboot.pug"    "${pkgdir}/opt/RoPieee/web/views/reboot.pug"
+   install -m0644 "../server/views/feedback.pug"  "${pkgdir}/opt/RoPieee/web/views/feedback.pug"
 }
