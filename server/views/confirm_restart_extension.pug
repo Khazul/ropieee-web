@@ -1,0 +1,22 @@
+html
+  head
+    title=title
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+  body
+    div.container
+      div.jumbotron
+        h1 Restart Roon Remote Extension...
+      div
+        h5 Are you sure you want to restart the Roon Remote Extension?
+        br
+        br
+      div
+      block content
+        h4= title
+      
+      table(id='yesno')
+        tr
+          td(width='100')
+            button(type='button', value='ok', target='_blank', onclick="location.href='/restart_extension';") Yes
+          td
+            button(type='button', value='cancel', target='_blank', onclick="location.href='/';") Cancel

@@ -144,6 +144,26 @@ app.get('/godown', function(req, res) {
     });
 });
 
+app.get('/confirm_restart_extension', function(req, res) {
+   console.log('restarting remote...');
+   res.render('confirm_restart_extension', {});
+});
+
+app.get('/restart_extension', function(req, res) {
+   console.log('restarting RoPieee Remote')
+   var remote = spawn('systemctl', ['restart', 'ropieee-remote']);
+
+   remote.stdout.on('data', (data) => {
+       console.log(`stdout: ${data}`);
+    });
+
+   remote.stderr.on('data', (data) => {
+       console.log(`stderr: ${data}`);
+    });
+
+    res.redirect('/');
+});
+
 var settings = config.read();
 console.log('read config: ' + settings.rp_hostname);
 console.log('read config: ' + settings.rp_reboottime);
