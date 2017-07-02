@@ -24,7 +24,8 @@ module.exports = {
      p.rp_timezone = timezone;
      p.rp_touchscreen_detected = touchscreen_detected;
      p.rp_touchscreen_orientation = touchscreen_orientation;
-     p.rp_touchscreen_zone = touchscreen_zone;
+     zone = '\'' + touchscreen_zone + '\'';
+     p.rp_touchscreen_zone = zone;
 
      var tmpfile = fs.mkdtempSync('/tmp/ropieee');
 
