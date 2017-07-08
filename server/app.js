@@ -126,6 +126,8 @@ app.get('/godown', function(req, res) {
    console.log('type: ' + req.query.reboot);
    var godown;
 
+   res.redirect('/');
+
    if (req.query.reboot) {
       console.log('REBOOT');
       godown = spawn('systemctl', ['reboot']);
