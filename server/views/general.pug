@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    title=title
+    link(href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+
+  body
+    div.container
+      div.jumbotron
+        h2 Welcome to RoPieee!
+      div.container
+        ul(class='nav nav-tabs')
+           li(role='presentation' class='active')
+              a(href='/') General
+
+           if (config_rp_touchscreen_detected== '1')
+             li(role='Display')
+                a(href='/display') Display
+
+           li(role='presentation')
+              a(href='/advanced') Advanced
+           li(role='presentation')
+              a(href='/info') Information
+
+
+        br
+        h5 This section contains the minimal settings that are required to function as Roon endpoint.
+        br
+
+        form(class='form-horizontal' action='/submit?config=general' method='post')
+          div(class='form-group')
+            label(class='control-label col-sm-2' for='hostname') Hostname
+            div(class='col-sm-10')
+              input(type='text' class='form-control' name='hostname' pattern='[A-Za-z0-9]+' placeholder='Only letters and numbers are allowed.' data-toggle='tooltip' title='The name that identifies the RoPieee. Very useful if you have more than 1 RoPieee in your network.' for='hostname' value= config_rp_hostname)
+          div(class='form-group')
+            label(class='control-label col-sm-2' for='hat') Audio HAT
+            div(class='col-sm-10')
+              select(class='form-control' name='audio' data-toggle='tooltip' title='Select the audio HAT the RoPieee needs to use.')
+                each val, key in config_rp_hats
+                  option(value= key, selected=(config_rp_timezone_set== key)) #{val}
+          div(class='form-group')
+            label(class='control-label col-sm-2' for='hat') Audio USB
+            div(class='col-sm-10')
+              input(type='checkbox' name='audio_usb' checked=(config_rp_audio_usb=='1') data-toggle='tooltip' title='Select to enable USB audio. This can be used in parallel with an Audio HAT.')
+          hr
+          div(class='form-group')
+            label(class='control-label col-sm-2' for='hat') Reboot time
+            div(class='col-sm-10')
+              input(class='form-control' name='reboottime' type='time' data-toggle='tooltip' title='Every 24 hours the RoPieee is going to reboot and will look for updates. With this setting you can specify how late this will happen.' value= config_rp_reboottime)
+          div(class='form-group')
+            label(class='control-label col-sm-2' for='tzone') Timezone
+            div(class='col-sm-10')
+              select(class='form-control' name='timezone' data-toggle='tooltip' title='Select the corresponding timezone in which the RoPieee is located.')
+                each val in config_rp_timezone
+                  option(value= val, selected=(config_rp_timezone_set== val)) #{val}
+          hr
+          button(type='submit' class='btn btn-default') Commit Changes
+          

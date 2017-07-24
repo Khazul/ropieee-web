@@ -15,45 +15,65 @@ html
         h5 Here's a summary of your settings. When you're sure you can save these. Depending on the settings RoPieee might require a reboot.
         br
 
-        form(class='form-horizontal' action='/commit?config=general' method='post')
-          div(class='form-group')
-            label(class='control-label col-sm-2') Hostname
-            div(class='col-sm-10')
-              input(class='form-control' name='hostname' for='hostname' value= config_rp_hostname readonly)
-          div(class='form-group')
-            label(class='control-label col-sm-2') Audio HAT
-            div(class='col-sm-10')
-              select(class='form-control' name='audio' disabled)
-                option(value='ropieee-no-hat',                    selected=(config_rp_audio=='ropieee-no-hat'))                    No HAT configured
-                option(value='allo-boss-dac-pcm512x-audio',       selected=(config_rp_audio=='allo-boss-dac-pcm512x-audio'))       Allo BOSS DAC
-                option(value='allo-digione',                      selected=(config_rp_audio=='allo-digione'))                      Allo DigiOne
-                option(value='allo-piano-dac-pcm512x-audio',      selected=(config_rp_audio=='allo-piano-dac-pcm512x-audio'))      Allo Piano DAC
-                option(value='allo-piano-dac-plus-pcm512x-audio', selected=(config_rp_audio=='allo-piano-dac-plus-pcm512x-audio')) Allo Piano DAC 2.1
-                option(value='hifiberry-amp',                     selected=(config_rp_audio=='hifiberry-amp'))                     HifiBerry AMP/AMP+
-                option(value='hifiberry-dac',                     selected=(config_rp_audio=='hifiberry-dac'))                     HifiBerry DAC
-                option(value='hifiberry-dacplus',                 selected=(config_rp_audio=='hifiberry-dacplus'))                 HifiBerry DAC+/DAC+ Pro
-                option(value='hifiberry-digi',                    selected=(config_rp_audio=='hifiberry-digi'))                    HifiBerry Digi+
-                option(value='hifiberry-digi-pro',                selected=(config_rp_audio=='hifiberry-digi-pro'))                HifiBerry Digi+ Pro
-                option(value='iqaudio-digi-wm8804-audio',         selected=(config_rp_audio=='iqaudio-digi-wm8804-audio'))         IQaudIO Digi+
-                option(value='iqaudio-dacplus,unmute_amp',        selected=(config_rp_audio=='iqaudio-dacplus,unmute_amp'))        IQaudIO DigiAMP+
-                option(value='iqaudio-dacplus',                   selected=(config_rp_audio=='iqaudio-dacplus'))                   IQaudIO Pi-DAC(+/PRO/Zero)
-                option(value='justboom-dac',                      selected=(config_rp_audio=='justboom-dac'))                      Justboom Amp HAT, DAC HAT (*)
-                option(value='rpi-dac',                           selected=(config_rp_audio=='rpi-dac'))                           Raspberry Pi DAC (I2S)
-          div(class='form-group')
-            label(class='control-label col-sm-2') Audio USB
-            div(class='col-sm-10')
-              input(class='form-control' name='audio_usb' value= config_rp_audio_usb readonly)
-          hr
-          div(class='form-group')
-            label(class='control-label col-sm-2') Reboot time
-            div(class='col-sm-10')
-              input(class='form-control' name='reboottime' value= config_rp_reboottime readonly)
-          div(class='form-group')
-            label(class='control-label col-sm-2') Timezone
-            div(class='col-sm-10')
-              input(class='form-control' name='timezone' value= config_rp_timezone readonly)
-          hr
-          div.container
-            div(class='btn-toolbar')
-              button(type='submit' class='btn btn-primary btn-sm') Save Changes
-              button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+        if (toggle_rp== 'general')
+          form(class='form-horizontal' action='/commit?config=general' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Hostname
+              div(class='col-sm-10')
+                input(class='form-control' name='hostname' for='hostname' value= config_rp_hostname readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Audio HAT
+              div(class='col-sm-10')
+                input(class='form-control' name='audio_hat' value= config_rp_hat readonly)
+                input(class='form-control' name='audio' value= config_rp_audio type='hidden')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Audio USB
+              div(class='col-sm-10')
+                input(class='form-control' name='audio_usb' value= config_rp_audio_usb readonly)
+            hr
+            div(class='form-group')
+              label(class='control-label col-sm-2') Reboot time
+              div(class='col-sm-10')
+                input(class='form-control' name='reboottime' value= config_rp_reboottime readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Timezone
+              div(class='col-sm-10')
+                input(class='form-control' name='timezone' value= config_rp_timezone readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
+        if (toggle_rp== 'display')
+          form(class='form-horizontal' action='/commit?config=display' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Orientation
+              div(class='col-sm-10')
+                input(class='form-control' name='orientation' value= config_rp_touchscreen_orientation readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Roon Control Zone
+              div(class='col-sm-10')
+                input(class='form-control' name='zone' value= config_rp_touchscreen_zone readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
+        if (toggle_rp== 'advanced')
+          form(class='form-horizontal' action='/commit?config=advanced' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Update Channel
+              div(class='col-sm-10')
+                input(class='form-control' name='repo' value= config_rp_repo readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Auto Update
+              div(class='col-sm-10')
+                input(class='form-control' name='update' value= config_rp_auto_update readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
