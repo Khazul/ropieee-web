@@ -2,6 +2,7 @@ const hostname = '0.0.0.0';
 const port = process.env.NODE_PORT || 3000;
 const env = process.env;
 const spawn = require('child_process').spawn;
+const spawnSync = require('child_process').spawnSync;
 const os = require('os');
 
 var express = require('express');
@@ -79,6 +80,44 @@ app.get('/advanced', function(req, res) {
 });
 
 
+function query_pacman(package) {
+  helper = '| grep ' + package;
+  const pacman = spawnSync('./pacman', [ '-Q', helper]);
+
+  var s = String(pacman.stdout);
+  var splits = s.split("\n");
+
+  var software = {};
+  var j = 0;
+  for (var i = 0; i < splits.length; ++i) {
+     if (splits[i].length > 0) {
+        console.log('splits output:' + i + ': ' + splits[i]);
+        var splits2 = splits[i].split(" ");
+        software[splits2[0]] = splits2[1];
+     }
+  }
+
+  return software;
+}
+
+app.get('/info', function(req, res) {
+  var software_list = {};
+  software_list = query_pacman('ropieee'); 
+
+  var obj = Object.assign(query_pacman('ropieee'), query_pacman('linux'));
+
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)){
+        console.log(prop + ': ' + obj[prop]);
+    }
+  }
+
+  res.render('info', {
+     title: 'Welcome',
+     config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
+     config_rp_software: obj
+  });
+});
 
 app.post('/submit', function(req, res) {
   console.log('submitting changes for: ' + req.query.config);
