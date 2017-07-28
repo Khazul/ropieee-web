@@ -33,7 +33,8 @@ app.get('/', function(req, res) {
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
-     config_rp_touchscreen_zone: settings.rp_touchscreen_zone
+     config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
+     config_rp_repo: settings.rp_repo
   });
 });
 
@@ -44,13 +45,15 @@ app.post('/submit', function(req, res) {
   if (typeof req.body.audio_usb == 'undefined') req.body.audio_usb=0
   if (req.body.audio_usb == 'on') req.body.audio_usb=1
 
-
   if (typeof req.body.auto_update == 'undefined') req.body.auto_update=1
   if (req.body.auto_update == 'on') req.body.auto_update=1
+
+  if (typeof settings.rp_repo == 'undefined') settings.rp_repo='stable'
 
   console.log('submit req.body.audio_usb: ' + req.body.audio_usb);
   console.log('submit req.body.reboottime: ' + req.body.reboottime);
   console.log('submit req.body.auto_update: ' + req.body.auto_update);
+  console.log('submit req.body.repo: ' + req.body.repo);
   console.log('submit req.body.timezone: ' + req.body.timezone);
   console.log('submit req.body.touchscreen_orientation: ' + req.body.touchscreen_orientation);
   console.log('submit req.body.touchscreen_zone: ' + req.body.touchscreen_zone);
@@ -64,7 +67,8 @@ app.post('/submit', function(req, res) {
      config_rp_timezone: req.body.timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: req.body.touchscreen_orientation,
-     config_rp_touchscreen_zone: req.body.touchscreen_zone
+     config_rp_touchscreen_zone: req.body.touchscreen_zone,
+     config_rp_repo: settings.rp_repo
   });
 });
 
@@ -78,10 +82,11 @@ app.post('/commit', function( req, res) {
    console.log(req.body.touchscreen_orientation);
    console.log(req.body.touchscreen_zone);
    console.log(req.body.auto_update);
+   console.log(req.body.repo);
    res.render('commit', {});
    var tmpfile = config.write( req.body.hostname, req.body.reboottime, req.body.audio, req.body.audio_usb, 
 	                       req.body.timezone, settings.rp_touchscreen_detected, req.body.touchscreen_orientation, 
-	                       req.body.touchscreen_zone, req.body.auto_update )
+	                       req.body.touchscreen_zone, req.body.auto_update, req.body.repo )
    console.log('config written to: ' + tmpfile);
 
    // now call configure
@@ -176,6 +181,7 @@ console.log('read config: ' + settings.rp_timezone);
 console.log('read config: ' + settings.rp_touchscreen_detected);
 console.log('read config: ' + settings.rp_touchscreen_orientation);
 console.log('read config: ' + settings.rp_touchscreen_zone);
+console.log('read config: ' + settings.rp_repo);
 
 var info = {}
 info.hostname = os.hostname();
