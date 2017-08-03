@@ -80,7 +80,6 @@ app.get('/advanced', function(req, res) {
   });
 });
 
-
 function query_pacman(package) {
   helper = '| grep ' + package;
   const pacman = spawnSync('./pacman', [ '-Q', helper]);
@@ -132,7 +131,7 @@ app.post('/submit', function(req, res) {
   if (req.query.config == 'general') {
      console.log('summary for: general');
      console.log('summary:audio: ' + req.body.audio);
-     res.render('summary2', {
+     res.render('summary', {
 	toggle_rp: 'general',
         config_rp_hostname: req.body.hostname,
 	config_rp_audio: req.body.audio,
@@ -147,7 +146,7 @@ app.post('/submit', function(req, res) {
      console.log('summary for: display');
      console.log('summary:orientation: ' + req.body.orientation);
      console.log('summary:zone: ' + req.body.zone);
-     res.render('summary2', {
+     res.render('summary', {
 	toggle_rp: 'display',
         config_rp_touchscreen_orientation: req.body.orientation,
 	config_rp_touchscreen_zone: req.body.zone
@@ -157,50 +156,17 @@ app.post('/submit', function(req, res) {
   if (req.query.config == 'advanced') {
      console.log('summary for: advanced');
      console.log('summary:advanced: ' + req.body.repo);
-     res.render('summary2', {
+     res.render('summary', {
 	toggle_rp: 'advanced',
         config_rp_repo: req.body.repo,
         config_rp_auto_update: req.body.auto_update
      });
   }
-
-
-
-return;
-
-  if (typeof req.body.audio_usb == 'undefined') req.body.audio_usb=0
-  if (req.body.audio_usb == 'on') req.body.audio_usb=1
-
-  if (typeof req.body.auto_update == 'undefined') req.body.auto_update=1
-  if (req.body.auto_update == 'on') req.body.auto_update=1
-
-  console.log('submit req.body.audio_usb: ' + req.body.audio_usb);
-  console.log('submit req.body.reboottime: ' + req.body.reboottime);
-  console.log('submit req.body.auto_update: ' + req.body.auto_update);
-  console.log('submit req.body.timezone: ' + req.body.timezone);
-  console.log('submit req.body.touchscreen_orientation: ' + req.body.touchscreen_orientation);
-  console.log('submit req.body.touchscreen_zone: ' + req.body.touchscreen_zone);
-
-  res.render('summary', {
-     config_rp_hostname: req.body.hostname,
-     config_rp_audio: req.body.audio,
-     config_rp_audio_usb: req.body.audio_usb,
-     config_rp_reboottime: req.body.reboottime,
-     config_rp_auto_update: req.body.auto_update,
-     config_rp_timezone: req.body.timezone,
-     config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
-     config_rp_touchscreen_orientation: req.body.touchscreen_orientation,
-     config_rp_touchscreen_zone: req.body.touchscreen_zone
-  });
 });
 
 app.post('/commit', function( req, res) {
    console.log('committing changes for: ' + req.query.config);
    res.render('commit', {});
-
-   //console.log('settings.hostname: '  + settings.rp_hostname);
-   //console.log('settings.audio: '     + settings.rp_audio);
-   //console.log('settings.audio_usb: ' + settings.rp_audio_usb);
 
    // overrule settings for section general
    if (req.query.config == 'general') {
