@@ -47,6 +47,7 @@ module.exports = {
      console.log('config:write: writing to ' + tmpfile);
 
      fs.writeFileSync(tmpfile, ini.stringify(obj_settings, {}));
+     return tmpfile;
   }
 };
 
