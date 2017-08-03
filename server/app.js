@@ -82,7 +82,7 @@ app.get('/advanced', function(req, res) {
 
 function query_pacman(package) {
   helper = '| grep ' + package;
-  const pacman = spawnSync('./pacman', [ '-Q', helper]);
+  const pacman = spawnSync('pacman', [ '-Q', helper]);
 
   var s = String(pacman.stdout);
   var splits = s.split("\n");
