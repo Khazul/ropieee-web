@@ -39,7 +39,7 @@ html
             div(class='col-sm-10')
               select(class='form-control' name='audio' data-toggle='tooltip' title='Select the audio HAT the RoPieee needs to use.')
                 each val, key in config_rp_hats
-                  option(value= key, selected=(config_rp_timezone_set== key)) #{val}
+                  option(value= key, selected=(config_rp_audio== key)) #{val}
           div(class='form-group')
             label(class='control-label col-sm-2' for='hat') Audio USB
             div(class='col-sm-10')
