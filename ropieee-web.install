@@ -12,7 +12,7 @@ post_upgrade()
    npm install
 
    systemctl daemon-reload
-   if systemctl status ropieee1-web
+   if systemctl is-enabled ropieee1-web
    then
      systemctl restart ropieee1-web
    fi
