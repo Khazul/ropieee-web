@@ -80,9 +80,9 @@ app.get('/advanced', function(req, res) {
   });
 });
 
-function query_pacman(package) {
-  helper = '| grep ' + package;
-  const pacman = spawnSync('pacman', [ '-Q', helper]);
+function query_pacman() {
+  console.log('querying pacman for info...');
+  var pacman = spawnSync('/usr/bin/pacman', ['-Q']);
 
   var s = String(pacman.stdout);
   var splits = s.split("\n");
@@ -91,7 +91,6 @@ function query_pacman(package) {
   var j = 0;
   for (var i = 0; i < splits.length; ++i) {
      if (splits[i].length > 0) {
-        console.log('splits output:' + i + ': ' + splits[i]);
         var splits2 = splits[i].split(" ");
         software[splits2[0]] = splits2[1];
      }
@@ -101,21 +100,20 @@ function query_pacman(package) {
 }
 
 app.get('/info', function(req, res) {
+  var software_installed = query_pacman();
   var software_list = {};
-  software_list = query_pacman('ropieee'); 
+  software_list['ropieee']               = software_installed['ropieee'];
+  software_list['ropieee-web']           = software_installed['ropieee-web'];
+  software_list['linux-raspberrypi-dsd'] = software_installed['linux-raspberrypi-dsd'];
 
-  var obj = Object.assign(query_pacman('ropieee'), query_pacman('linux'));
-
-  for(var prop in obj) {
-    if(obj.hasOwnProperty(prop)){
-        console.log(prop + ': ' + obj[prop]);
-    }
-  }
+  if (software_installed['qt5-base-raspberrypi']) software_list['qt5-base-raspberrypi']=software_installed['qt5-base-raspberrypi'];
+  if (software_installed['ropieee-remote'])       software_list['ropieee-remote']=software_installed['ropieee-remote'];
+  if (software_installed['ropieee-touchui'])      software_list['ropieee-touchui']=software_installed['ropieee-touchui'];
 
   res.render('info', {
      title: 'Welcome',
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
-     config_rp_software: obj
+     config_rp_software: software_list
   });
 });
 
