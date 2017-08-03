@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# this is a pacman simulator
+
+echo "ropieee 20170727-1"
+echo "ropieee-remote 20170715-2"
+echo "ropieee-web 20170715-3"
