@@ -1,71 +1,79 @@
+doctype html
 html
   head
     title=title
-    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    link(href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+
   body
     div.container
       div.jumbotron
-        h1 Changing settings...
-      div
-        h5 Here's a summary of your settings. When you're sure you can commit these.
+        h2 Changing settings...
+      div.container
         br
+        h5 Here's a summary of your settings. When you're sure you can save these. Depending on the settings RoPieee might require a reboot.
         br
-      div
-      block content
-        h4= title
 
-      form(id='config2' name='config' action='/commit', method='post')
-         table(id='my-test-table' border='0')
-            tr
-               th(width='200') Setting
-               th(width='100') Value
-            tr
-               td Hostname
-               td 
-                  value= config_rp_hostname
-                  input(name='hostname', type='hidden', value= config_rp_hostname)
-            tr
-               td Audio HAT
-               td
-                  value= config_rp_audio
-                  input(name='audio', type='hidden', value= config_rp_audio)
-            tr
-               td Audio USB
-               td
-                  value= config_rp_audio_usb
-                  input(name='audio_usb', type='hidden', value= config_rp_audio_usb)
-            tr
-               td Reboot time
-               td 
-                  value= config_rp_reboottime
-                  input(name='reboottime', type='hidden', value= config_rp_reboottime)
-            tr
-               td Auto update
-               td 
-                  value= config_rp_auto_update
-                  input(name='auto_update', type='hidden', value= config_rp_auto_update)
-            tr
-               td Update channel
-               td 
-                  value= config_rp_repo
-                  input(name='repo', type='hidden', value= config_rp_repo)
-            tr
-               td Timezone
-               td 
-                  value= config_rp_timezone
-                  input(name='timezone', type='hidden', value= config_rp_timezone)
-            if (config_rp_touchscreen_detected== '1')
-               tr
-                  td Touchscreen Orientation
-                  td
-                     value= config_rp_touchscreen_orientation
-                     input(name='touchscreen_orientation', type='hidden', value= config_rp_touchscreen_orientation)
-               tr
-                  td Touchscreen Roon Zone
-                  td
-                     value= config_rp_touchscreen_zone
-                     input(name='touchscreen_zone', type='hidden', value= config_rp_touchscreen_zone)
-         br
-         br
-         input(type='submit', value='Commit Changes')
-      button(type='button', value='cancel', target='_blank', onclick="location.href='/';") Cancel
+        if (toggle_rp== 'general')
+          form(class='form-horizontal' action='/commit?config=general' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Hostname
+              div(class='col-sm-10')
+                input(class='form-control' name='hostname' for='hostname' value= config_rp_hostname readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Audio HAT
+              div(class='col-sm-10')
+                input(class='form-control' name='audio_hat' value= config_rp_hat readonly)
+                input(class='form-control' name='audio' value= config_rp_audio type='hidden')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Audio USB
+              div(class='col-sm-10')
+                input(class='form-control' name='audio_usb' value= config_rp_audio_usb readonly)
+            hr
+            div(class='form-group')
+              label(class='control-label col-sm-2') Reboot time
+              div(class='col-sm-10')
+                input(class='form-control' name='reboottime' value= config_rp_reboottime readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Timezone
+              div(class='col-sm-10')
+                input(class='form-control' name='timezone' value= config_rp_timezone readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
+        if (toggle_rp== 'display')
+          form(class='form-horizontal' action='/commit?config=display' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Orientation
+              div(class='col-sm-10')
+                input(class='form-control' name='orientation' value= config_rp_touchscreen_orientation readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Roon Control Zone
+              div(class='col-sm-10')
+                input(class='form-control' name='zone' value= config_rp_touchscreen_zone readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
+        if (toggle_rp== 'advanced')
+          form(class='form-horizontal' action='/commit?config=advanced' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Update Channel
+              div(class='col-sm-10')
+                input(class='form-control' name='repo' value= config_rp_repo readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Auto Update
+              div(class='col-sm-10')
+                input(class='form-control' name='update' value= config_rp_auto_update readonly)
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+

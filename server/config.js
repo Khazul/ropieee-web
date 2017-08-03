@@ -37,5 +37,16 @@ module.exports = {
      fs.writeFileSync(tmpfile, ini.stringify(p, {}));
 
      return tmpfile;
+  },
+
+  write2: function(obj_settings) {
+     var tmpfile = fs.mkdtempSync('/tmp/ropieee');
+
+     console.log('tmpfile = ' + tmpfile);
+     tmpfile = tmpfile + '/settings.ini';
+     console.log('config:write: writing to ' + tmpfile);
+
+     fs.writeFileSync(tmpfile, ini.stringify(obj_settings, {}));
   }
 };
+
