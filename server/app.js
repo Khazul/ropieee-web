@@ -4,6 +4,7 @@ const env = process.env;
 const spawn = require('child_process').spawn;
 const spawnSync = require('child_process').spawnSync;
 const os = require('os');
+const crypto = require('crypto');
 
 var express = require('express');
 var morgan = require('morgan');
@@ -255,8 +256,18 @@ app.get('/reboot', function(req, res) {
 });
 
 app.get('/feedback', function(req, res) {
-   console.log('sending feedback...');
-   var feedback = spawn('systemctl', ['start', 'ropieee-feedback']);
+   res.render('feedback', {});
+});
+
+app.get('/sendfeedback', function(req, res) {
+   var d = new Date();
+   var str = d.getTime() + os.hostname() + os.uptime();
+   var hash = crypto.createHash('sha256');
+   hash.update(str);
+   var unique = hash.digest('hex').substr(0,16);
+
+   console.log('sending feedback...: ' + unique);
+   var feedback = spawn('systemctl', ['start', 'ropieee-feedback@' + unique]);
 
    feedback.stdout.on('data', (data) => {
        console.log(`stdout: ${data}`);
@@ -266,7 +277,14 @@ app.get('/feedback', function(req, res) {
        console.log(`stderr: ${data}`);
     });
 
-   res.render('feedback', {});
+   res.redirect('/feedback_sent?unique=' + unique);
+});
+
+app.get('/feedback_sent', function(req, res) {
+   console.log('feedback sent with unique id: ' + req.query.unique);
+   res.render('feedback_sent', {
+      title: 'feedback',
+      unique: req.query.unique });
 });
 
 app.get('/godown', function(req, res) {
@@ -296,7 +314,7 @@ app.get('/godown', function(req, res) {
 
 app.get('/confirm_restart_extension', function(req, res) {
    console.log('restarting remote...');
-   res.render('confirm_restart_extension', {});
+   res.render('extension', {});
 });
 
 app.get('/restart_extension', function(req, res) {

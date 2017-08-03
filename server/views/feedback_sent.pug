@@ -9,13 +9,14 @@ html
   body
     div.container
       div.jumbotron
-        h2 Shutting down...
+        h2 Sending feedback...
       div.container
-        br
-        h5 Are you sure you want to shutdown the RoPieee?
+        h4 Logs have been sent to RoPieee HQ with unique identifier 
+          span(class='label label-info') #{unique}
+        h4 Please leave a mail or a note on the Roon forum with this identifier. Thanks!
+
         br
         hr
         div.container
           div(class='btn-toolbar')
-            button(type='button' class='btn btn-default' value='ok' target='_blank' onclick="location.href='/godown';") Yes
-            button(type='button' class='btn btn-default' value='cancel' target='_blank' onclick="location.href='/';") Cancel
+            button(type='button' class='btn btn-default' value='home' target='_blank' onclick="location.href='/';") Home
