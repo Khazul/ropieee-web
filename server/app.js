@@ -33,6 +33,7 @@ app.get('/', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
@@ -53,6 +54,7 @@ app.get('/display', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
@@ -73,6 +75,7 @@ app.get('/advanced', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
@@ -116,6 +119,7 @@ app.get('/info', function(req, res) {
   res.render('info', {
      title: 'Welcome',
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
+     config_rp_this_hostname: info.hostname,
      config_rp_software: software_list,
      config_rp_needs_reboot: state.needs_reboot
   });
