@@ -10,6 +10,12 @@ html
     div.container
       div.jumbotron
         h2 Welcome to RoPieee!
+
+      if (config_rp_needs_reboot== true)
+        div.alert(class='alert alert-danger')
+          h5 Your RoPieee requires a reboot for the changes take effect.  
+            button(class='btn btn-default') Reboot
+
       div.container
         ul(class='nav nav-tabs')
            li(role='presentation' class='active')

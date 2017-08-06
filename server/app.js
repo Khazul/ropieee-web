@@ -38,7 +38,8 @@ app.get('/', function(req, res) {
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -57,7 +58,8 @@ app.get('/display', function(req, res) {
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -76,7 +78,8 @@ app.get('/advanced', function(req, res) {
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -113,7 +116,8 @@ app.get('/info', function(req, res) {
   res.render('info', {
      title: 'Welcome',
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
-     config_rp_software: software_list
+     config_rp_software: software_list,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -173,15 +177,19 @@ app.post('/commit', function( req, res) {
       settings.rp_audio_usb  = req.body.audio_usb 
       settings.rp_reboottime = req.body.reboottime 
       settings.rp_timezone   = req.body.timezone 
+ 
+      state.needs_reboot = true;
    }
 
    // overrule settings for section display
    if (req.query.config == 'display') {
       settings.rp_touchscreen_orientation = req.body.orientation 
       settings.rp_touchscreen_zone = req.body.zone 
+
+      state.needs_reboot = true;
    }
 
-   // overrule settings for section display
+   // overrule settings for section advanced
    if (req.query.config == 'advanced') {
       settings.rp_repo = req.body.repo
       settings.rp_auto_update = req.body.update
@@ -198,7 +206,7 @@ app.post('/commit', function( req, res) {
    console.log('config written to: ' + tmpfile);
 
    // now call configure
-   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile]);
+   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile, 'no_reboot']);
 
    configure.stdout.on('data', (data) => {
        console.log(`stdout: ${data}`);
@@ -322,7 +330,8 @@ hats["iqaudio-dacplus"]                   = "IQaudIO Pi-DAC(+/PRO/Zero)";
 hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT (*)";
 hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
-
+var state = {}
+state.needs_reboot = true;
 
 // let's go!
 app.listen(port, hostname, () => {
