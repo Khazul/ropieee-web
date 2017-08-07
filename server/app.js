@@ -223,16 +223,22 @@ app.post('/commit', function( req, res) {
 
 app.get('/shutdown', function(req, res) {
    console.log('shutting down...');
-   res.render('shutdown', {});
+   res.render('shutdown', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/reboot', function(req, res) {
    console.log('rebooting...');
-   res.render('reboot', {});
+   res.render('reboot', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/feedback', function(req, res) {
-   res.render('feedback', {});
+   res.render('feedback', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/sendfeedback', function(req, res) {
@@ -259,7 +265,7 @@ app.get('/sendfeedback', function(req, res) {
 app.get('/feedback_sent', function(req, res) {
    console.log('feedback sent with unique id: ' + req.query.unique);
    res.render('feedback_sent', {
-      title: 'feedback',
+      config_rp_this_hostname: info.hostname,
       unique: req.query.unique });
 });
 
@@ -290,7 +296,9 @@ app.get('/godown', function(req, res) {
 
 app.get('/confirm_restart_extension', function(req, res) {
    console.log('restarting remote...');
-   res.render('extension', {});
+   res.render('extension', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/restart_extension', function(req, res) {
@@ -335,7 +343,7 @@ hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT (*)";
 hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
 var state = {}
-state.needs_reboot = true;
+state.needs_reboot = false;
 
 // let's go!
 app.listen(port, hostname, () => {
