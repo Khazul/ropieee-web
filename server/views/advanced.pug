@@ -1,15 +1,11 @@
 doctype html
 html
-  head
-    title=title
-    link(href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
-    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-    script(src='https://https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  include head.pug
 
   body
     div.container
-      div.jumbotron
-        h2 Welcome to RoPieee!
+      include header.pug
+
       div.container
         ul(class='nav nav-tabs')
            li(role='presentation')
@@ -26,7 +22,7 @@ html
 
 
         br
-        h5 This section contains advanced settings. Only change them if you exactly know what you're doing!
+        h5 This section contains advanced settings. Only change them if you know exactly what you're doing!
         br
 
         form(class='form-horizontal' action='/submit?config=advanced' method='post')

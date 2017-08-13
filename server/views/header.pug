@@ -1,0 +1,7 @@
+div.well(class='well well-sm') 
+  h4 Welcome to RoPieee.  [#{config_rp_this_hostname}]
+
+if (config_rp_needs_reboot== true)
+  div.alert(class='alert alert-danger clearfix')
+    button(class='btn btn-metro pull-right' target='_blank' onclick="location.href='/reboot';") Reboot
+    h5 Your RoPieee requires a reboot for the changes to take effect.

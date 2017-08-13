@@ -33,12 +33,14 @@ app.get('/', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -52,12 +54,14 @@ app.get('/display', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -71,12 +75,14 @@ app.get('/advanced', function(req, res) {
      config_rp_audio_usb: settings.rp_audio_usb,
      config_rp_hats: hats,
      config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
      config_rp_timezone: info.timezone,
      config_rp_timezone_set: settings.rp_timezone,
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
-     config_rp_repo: settings.rp_repo
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -113,7 +119,9 @@ app.get('/info', function(req, res) {
   res.render('info', {
      title: 'Welcome',
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
-     config_rp_software: software_list
+     config_rp_this_hostname: info.hostname,
+     config_rp_software: software_list,
+     config_rp_needs_reboot: state.needs_reboot
   });
 });
 
@@ -136,7 +144,9 @@ app.post('/submit', function(req, res) {
 	config_rp_audio_usb: req.body.audio_usb,
 	config_rp_reboottime: req.body.reboottime,
 	config_rp_timezone: req.body.timezone,
-        config_rp_hat: hats[req.body.audio]
+        config_rp_hat: hats[req.body.audio],
+        config_rp_this_hostname: info.hostname
+
      });
   }
 
@@ -147,7 +157,8 @@ app.post('/submit', function(req, res) {
      res.render('summary', {
 	toggle_rp: 'display',
         config_rp_touchscreen_orientation: req.body.orientation,
-	config_rp_touchscreen_zone: req.body.zone
+	config_rp_touchscreen_zone: req.body.zone,
+        config_rp_this_hostname: info.hostname
      });
   }
 
@@ -157,14 +168,15 @@ app.post('/submit', function(req, res) {
      res.render('summary', {
 	toggle_rp: 'advanced',
         config_rp_repo: req.body.repo,
-        config_rp_auto_update: req.body.auto_update
+        config_rp_auto_update: req.body.auto_update,
+        config_rp_this_hostname: info.hostname
      });
   }
 });
 
 app.post('/commit', function( req, res) {
    console.log('committing changes for: ' + req.query.config);
-   res.render('commit', {});
+//   res.render('commit', {});
 
    // overrule settings for section general
    if (req.query.config == 'general') {
@@ -173,15 +185,19 @@ app.post('/commit', function( req, res) {
       settings.rp_audio_usb  = req.body.audio_usb 
       settings.rp_reboottime = req.body.reboottime 
       settings.rp_timezone   = req.body.timezone 
+ 
+      state.needs_reboot = true;
    }
 
    // overrule settings for section display
    if (req.query.config == 'display') {
       settings.rp_touchscreen_orientation = req.body.orientation 
       settings.rp_touchscreen_zone = req.body.zone 
+
+      state.needs_reboot = true;
    }
 
-   // overrule settings for section display
+   // overrule settings for section advanced
    if (req.query.config == 'advanced') {
       settings.rp_repo = req.body.repo
       settings.rp_auto_update = req.body.update
@@ -198,7 +214,7 @@ app.post('/commit', function( req, res) {
    console.log('config written to: ' + tmpfile);
 
    // now call configure
-   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile]);
+   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile, 'no_reboot']);
 
    configure.stdout.on('data', (data) => {
        console.log(`stdout: ${data}`);
@@ -207,20 +223,29 @@ app.post('/commit', function( req, res) {
    configure.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
    });
+
+   // and go back home
+   res.redirect('/');
 });
 
 app.get('/shutdown', function(req, res) {
    console.log('shutting down...');
-   res.render('shutdown', {});
+   res.render('shutdown', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/reboot', function(req, res) {
    console.log('rebooting...');
-   res.render('reboot', {});
+   res.render('reboot', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/feedback', function(req, res) {
-   res.render('feedback', {});
+   res.render('feedback', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/sendfeedback', function(req, res) {
@@ -247,7 +272,7 @@ app.get('/sendfeedback', function(req, res) {
 app.get('/feedback_sent', function(req, res) {
    console.log('feedback sent with unique id: ' + req.query.unique);
    res.render('feedback_sent', {
-      title: 'feedback',
+      config_rp_this_hostname: info.hostname,
       unique: req.query.unique });
 });
 
@@ -278,7 +303,9 @@ app.get('/godown', function(req, res) {
 
 app.get('/confirm_restart_extension', function(req, res) {
    console.log('restarting remote...');
-   res.render('extension', {});
+   res.render('extension', {
+      config_rp_this_hostname: info.hostname
+   });
 });
 
 app.get('/restart_extension', function(req, res) {
@@ -322,7 +349,8 @@ hats["iqaudio-dacplus"]                   = "IQaudIO Pi-DAC(+/PRO/Zero)";
 hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT (*)";
 hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
-
+var state = {}
+state.needs_reboot = false;
 
 // let's go!
 app.listen(port, hostname, () => {

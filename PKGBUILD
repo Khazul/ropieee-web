@@ -1,8 +1,8 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20170803
-pkgrel=1
+pkgver=20170813
+pkgrel=4
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
 license=('MIT')
@@ -27,7 +27,8 @@ echo "package"
    install -m0644 "../server/views/commit.pug"         "${pkgdir}/opt/RoPieee/web/views/commit.pug"
    install -m0644 "../server/views/advanced.pug"       "${pkgdir}/opt/RoPieee/web/views/advanced.pug"
    install -m0644 "../server/views/display.pug"        "${pkgdir}/opt/RoPieee/web/views/display.pug"
-   install -m0644 "../server/views/home.pug"           "${pkgdir}/opt/RoPieee/web/views/home.pug"
+   install -m0644 "../server/views/head.pug"           "${pkgdir}/opt/RoPieee/web/views/head.pug"
+   install -m0644 "../server/views/header.pug"         "${pkgdir}/opt/RoPieee/web/views/header.pug"
    install -m0644 "../server/views/general.pug"        "${pkgdir}/opt/RoPieee/web/views/general.pug"
    install -m0644 "../server/views/info.pug"           "${pkgdir}/opt/RoPieee/web/views/info.pug"
    install -m0644 "../server/views/summary.pug"        "${pkgdir}/opt/RoPieee/web/views/summary.pug"
