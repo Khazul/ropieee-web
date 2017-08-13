@@ -1,15 +1,11 @@
 doctype html
 html
-  head
-    title=title
-    link(href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
-    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-    script(src='https://https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  include head.pug
 
   body
     div.container
-      div.jumbotron
-        h2 Changing settings...
+      include header.pug
+
       div.container
         br
         h5 Here's a summary of your settings. When you're sure you can save these. Depending on the settings RoPieee might require a reboot.
