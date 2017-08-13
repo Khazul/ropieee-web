@@ -144,7 +144,9 @@ app.post('/submit', function(req, res) {
 	config_rp_audio_usb: req.body.audio_usb,
 	config_rp_reboottime: req.body.reboottime,
 	config_rp_timezone: req.body.timezone,
-        config_rp_hat: hats[req.body.audio]
+        config_rp_hat: hats[req.body.audio],
+        config_rp_this_hostname: info.hostname
+
      });
   }
 
@@ -155,7 +157,8 @@ app.post('/submit', function(req, res) {
      res.render('summary', {
 	toggle_rp: 'display',
         config_rp_touchscreen_orientation: req.body.orientation,
-	config_rp_touchscreen_zone: req.body.zone
+	config_rp_touchscreen_zone: req.body.zone,
+        config_rp_this_hostname: info.hostname
      });
   }
 
@@ -165,14 +168,15 @@ app.post('/submit', function(req, res) {
      res.render('summary', {
 	toggle_rp: 'advanced',
         config_rp_repo: req.body.repo,
-        config_rp_auto_update: req.body.auto_update
+        config_rp_auto_update: req.body.auto_update,
+        config_rp_this_hostname: info.hostname
      });
   }
 });
 
 app.post('/commit', function( req, res) {
    console.log('committing changes for: ' + req.query.config);
-   res.render('commit', {});
+//   res.render('commit', {});
 
    // overrule settings for section general
    if (req.query.config == 'general') {
@@ -219,6 +223,9 @@ app.post('/commit', function( req, res) {
    configure.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
    });
+
+   // and go back home
+   res.redirect('/');
 });
 
 app.get('/shutdown', function(req, res) {
