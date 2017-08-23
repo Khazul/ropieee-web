@@ -112,9 +112,10 @@ app.get('/info', function(req, res) {
   software_list['ropieee-web']           = software_installed['ropieee-web'];
   software_list['linux-raspberrypi-dsd'] = software_installed['linux-raspberrypi-dsd'];
 
-  if (software_installed['qt5-base-raspberrypi']) software_list['qt5-base-raspberrypi']=software_installed['qt5-base-raspberrypi'];
-  if (software_installed['ropieee-remote'])       software_list['ropieee-remote']=software_installed['ropieee-remote'];
-  if (software_installed['ropieee-touchui'])      software_list['ropieee-touchui']=software_installed['ropieee-touchui'];
+  if (software_installed['qt5-base-ropieee'])        software_list['qt5-base-ropieee']=software_installed['qt5-base-ropieee'];
+  if (software_installed['qt5-declarative-ropieee']) software_list['qt5-declarative-ropieee']=software_installed['qt5-declarative-ropieee'];
+  if (software_installed['ropieee-remote'])          software_list['ropieee-remote']=software_installed['ropieee-remote'];
+  if (software_installed['ropieee-touchui'])         software_list['ropieee-touchui']=software_installed['ropieee-touchui'];
 
   res.render('info', {
      title: 'Welcome',
@@ -346,7 +347,7 @@ hats["hifiberry-digi-pro"]                = "HifiBerry Digi+ Pro";
 hats["iqaudio-digi-wm8804-audio"]         = "IQaudIO Digi+";
 hats["iqaudio-dacplus,unmute_amp"]        = "IQaudIO DigiAMP+";
 hats["iqaudio-dacplus"]                   = "IQaudIO Pi-DAC(+/PRO/Zero)";
-hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT (*)";
+hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT";
 hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
 var state = {}
