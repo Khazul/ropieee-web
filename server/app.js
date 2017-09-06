@@ -1,3 +1,5 @@
+"use strict";
+
 const hostname = '0.0.0.0';
 const port = process.env.NODE_PORT || 3000;
 const env = process.env;
