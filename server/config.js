@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require('fs');
 var ini = require('ini');
 
@@ -47,6 +49,17 @@ module.exports = {
      console.log('config:write: writing to ' + tmpfile);
 
      fs.writeFileSync(tmpfile, ini.stringify(obj_settings, {}));
+     return tmpfile;
+  },
+
+  write_json: function(obj_settings) {
+     var tmpfile = fs.mkdtempSync('/tmp/ropieee');
+
+     console.log('tmpfile = ' + tmpfile);
+     tmpfile = tmpfile + '/settings.json';
+     console.log('config:write: writing to ' + tmpfile);
+
+     fs.writeFileSync(tmpfile, JSON.stringify(obj_settings, null, 2), 'utf-8');
      return tmpfile;
   }
 };

@@ -218,11 +218,14 @@ app.post('/commit', function( req, res) {
    if (settings.rp_auto_update == 'on')  settings.rp_auto_update=1
    if (settings.rp_auto_update == 'off') settings.rp_auto_update=0
 
-   var tmpfile = config.write2( settings );
-   console.log('config written to: ' + tmpfile);
+   var tmpfile = config.write_json( settings );
+   console.log('config (json) written to: ' + tmpfile);
+
+   var tmpfile2 = config.write2( settings );
+   console.log('config (ini) written to: ' + tmpfile2);
 
    // now call configure
-   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile, 'no_reboot']);
+   const configure = spawn('/opt/RoPieee/sbin/configure', [tmpfile2, 'no_reboot']);
 
    configure.stdout.on('data', (data) => {
        console.log(`stdout: ${data}`);
