@@ -1,0 +1,17 @@
+doctype html
+html
+  include head.pug
+
+  body
+    div.container
+      div.well(class='well well-sm')
+        h4 Welcome to RoPieee.  [#{config_rp_this_hostname}]
+      div.container
+        br
+        h5 Are you sure you want to update the RoPieee?
+        br
+        hr
+        div.container
+          div(class='btn-toolbar')
+            button(type='button' class='btn btn-default' value='ok' target='_blank' onclick="location.href='/updater';") Yes
+            button(type='button' class='btn btn-default' value='cancel' target='_blank' onclick="location.href='/';") Cancel

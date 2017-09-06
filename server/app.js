@@ -40,7 +40,8 @@ app.get('/', function(req, res) {
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
-     config_rp_needs_reboot: state.needs_reboot
+     config_rp_needs_reboot: state.needs_reboot,
+     config_rp_update_available: state.update_available
   });
 });
 
@@ -61,7 +62,8 @@ app.get('/display', function(req, res) {
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
-     config_rp_needs_reboot: state.needs_reboot
+     config_rp_needs_reboot: state.needs_reboot,
+     config_rp_update_available: state.update_available
   });
 });
 
@@ -82,7 +84,8 @@ app.get('/advanced', function(req, res) {
      config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
-     config_rp_needs_reboot: state.needs_reboot
+     config_rp_needs_reboot: state.needs_reboot,
+     config_rp_update_available: state.update_available
   });
 });
 
@@ -109,6 +112,7 @@ app.get('/info', function(req, res) {
   var software_installed = query_pacman();
   var software_list = {};
   software_list['ropieee']               = software_installed['ropieee'];
+  software_list['ropieee-version']       = software_installed['ropieee-version'];
   software_list['ropieee-web']           = software_installed['ropieee-web'];
   software_list['linux-raspberrypi-dsd'] = software_installed['linux-raspberrypi-dsd'];
 
@@ -122,7 +126,8 @@ app.get('/info', function(req, res) {
      config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
      config_rp_this_hostname: info.hostname,
      config_rp_software: software_list,
-     config_rp_needs_reboot: state.needs_reboot
+     config_rp_needs_reboot: state.needs_reboot,
+     config_rp_update_available: state.update_available
   });
 });
 
@@ -243,6 +248,13 @@ app.get('/reboot', function(req, res) {
    });
 });
 
+app.get('/update', function(req, res) {
+   console.log('updating...');
+   res.render('update', {
+      config_rp_this_hostname: info.hostname
+   });
+});
+
 app.get('/feedback', function(req, res) {
    res.render('feedback', {
       config_rp_this_hostname: info.hostname
@@ -352,9 +364,10 @@ hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
 var state = {}
 state.needs_reboot = false;
+state.update_available = false;
 
 // let's go!
 app.listen(port, hostname, () => {
-   console.log("RoPieee web server running at http://" + hostname + ":" + port + "/");
+   console.log("RoPieee Web Server running at http://" + hostname + ":" + port + "/");
 });
 
