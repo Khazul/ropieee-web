@@ -12,6 +12,7 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var moment = require('moment-timezone');
+var clone = require('clone');
 var config = require('./config');
 var settings = {};
 
@@ -183,8 +184,8 @@ app.post('/submit', function(req, res) {
 });
 
 app.post('/commit', function( req, res) {
+   var copy_settings = {};
    console.log('committing changes for: ' + req.query.config);
-//   res.render('commit', {});
 
    // overrule settings for section general
    if (req.query.config == 'general') {
@@ -214,9 +215,12 @@ app.post('/commit', function( req, res) {
    // first normalize some stuff
    if (settings.rp_audio_usb == 'on')  settings.rp_audio_usb=1
    if (settings.rp_audio_usb == 'off') settings.rp_audio_usb=0
-   settings.rp_touchscreen_zone = '\'' + settings.rp_touchscreen_zone + '\'';
    if (settings.rp_auto_update == 'on')  settings.rp_auto_update=1
    if (settings.rp_auto_update == 'off') settings.rp_auto_update=0
+
+   // make a copy
+   copy_settings = clone(settings);
+   copy_settings.rp_touchscreen_zone = '\'' + settings.rp_touchscreen_zone + '\'';
 
    var tmpfile = config.write_json( settings );
    console.log('config (json) written to: ' + tmpfile);
