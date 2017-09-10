@@ -225,7 +225,7 @@ app.post('/commit', function( req, res) {
    var tmpfile = config.write_json( settings );
    console.log('config (json) written to: ' + tmpfile);
 
-   var tmpfile2 = config.write2( settings );
+   var tmpfile2 = config.write2( copy_settings );
    console.log('config (ini) written to: ' + tmpfile2);
 
    // now call configure
