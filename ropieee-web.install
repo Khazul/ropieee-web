@@ -9,6 +9,8 @@ post_install()
 post_upgrade()
 {
    cd /opt/RoPieee/web
+   npm cache verify
+   rm -rf /opt/RoPieee/web/node_modules
    npm install
 
    systemctl daemon-reload
