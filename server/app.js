@@ -7,6 +7,7 @@ const spawn = require('child_process').spawn;
 const spawnSync = require('child_process').spawnSync;
 const os = require('os');
 const crypto = require('crypto');
+const path = require('path');
 
 var express = require('express');
 var morgan = require('morgan');
@@ -21,6 +22,7 @@ var app = express();
 app.set('views', './views');
 app.set('view engine', 'pug');
 app.use(morgan('combined'));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
    extended: true
 }));
@@ -67,6 +69,32 @@ app.get('/display', function(req, res) {
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available
+  });
+});
+
+app.get('/network', function(req, res) {
+  res.render('network', {
+     title: 'Welcome',
+     config_rp_hostname: settings.rp_hostname,
+     config_rp_reboottime: settings.rp_reboottime,
+     config_rp_auto_update: settings.rp_auto_update,
+     config_rp_audio: settings.rp_audio,
+     config_rp_audio_usb: settings.rp_audio_usb,
+     config_rp_hats: hats,
+     config_rp_kernel: info.kernel,
+     config_rp_this_hostname: info.hostname,
+     config_rp_timezone: info.timezone,
+     config_rp_timezone_set: settings.rp_timezone,
+     config_rp_touchscreen_detected: settings.rp_touchscreen_detected,
+     config_rp_touchscreen_orientation: settings.rp_touchscreen_orientation,
+     config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
+     config_rp_repo: settings.rp_repo,
+     config_rp_needs_reboot: state.needs_reboot,
+     config_rp_update_available: state.update_available,
+     config_rp_network_wired_method: settings.rp_network_wired_method,
+     config_rp_network_wired_ipaddr: settings.rp_network_wired_ipaddr,
+     config_rp_network_wired_netmask: settings.rp_network_wired_netmask,
+     config_rp_network_wired_gateway: settings.rp_network_wired_gateway
   });
 });
 
@@ -171,6 +199,19 @@ app.post('/submit', function(req, res) {
      });
   }
 
+  if (req.query.config == 'network') {
+     console.log('summary for: network');
+     console.log('summary:network: ' + req.body.wired_method);
+     res.render('summary', {
+	toggle_rp: 'network',
+        config_rp_network_wired_method: req.body.wired_method,
+        config_rp_network_wired_ipaddr: req.body.wired_ip_addr,
+        config_rp_network_wired_netmask: req.body.wired_netmask,
+        config_rp_network_wired_gateway: req.body.wired_gateway,
+        config_rp_this_hostname: info.hostname
+     });
+  }
+
   if (req.query.config == 'advanced') {
      console.log('summary for: advanced');
      console.log('summary:advanced: ' + req.body.repo);
@@ -202,6 +243,16 @@ app.post('/commit', function( req, res) {
    if (req.query.config == 'display') {
       settings.rp_touchscreen_orientation = req.body.orientation 
       settings.rp_touchscreen_zone = req.body.zone 
+
+      state.needs_reboot = true;
+   }
+
+   // overrule settings for section network
+   if (req.query.config == 'network') {
+      settings.rp_network_wired_method = req.body.wired_method
+      settings.rp_network_wired_ipaddr = req.body.wired_ipaddr
+      settings.rp_network_wired_netmask = req.body.wired_netmask
+      settings.rp_network_wired_gateway = req.body.wired_gateway
 
       state.needs_reboot = true;
    }
