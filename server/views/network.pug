@@ -54,15 +54,15 @@ html
           div(class='form-group')
             label(class='control-label col-sm-2' for='ip_address') IP Address
             div(class='col-sm-10')
-              input(type='text' class='form-control' name='wired_ip_addr' id='wired_ip_addr' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='192.168.1.115' title='The static IP address you want the RoPiee to have.')
+              input(type='text' class='form-control' name='wired_ip_addr' id='wired_ip_addr' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='192.168.1.115' title='The static IP address you want the RoPiee to have.' value= config_rp_network_wired_ipaddr)
           div(class='form-group')
             label(class='control-label col-sm-2' for='ip_address') IP Netmask
             div(class='col-sm-10')
-              input(type='text' class='form-control' name='wired_netmask' id='wired_netmask' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='255.255.255.0' title='The netmask you want the RoPieee to have.')
+              input(type='text' class='form-control' name='wired_netmask' id='wired_netmask' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='255.255.255.0' title='The netmask you want the RoPieee to have.' value= config_rp_network_wired_netmask)
           div(class='form-group')
             label(class='control-label col-sm-2' for='ip_address') Gateway
             div(class='col-sm-10')
-              input(type='text' class='form-control' name='wired_gateway' id='wired_gateway' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='255.255.255.0' title='The gateway you want the RoPieee to use.')
+              input(type='text' class='form-control' name='wired_gateway' id='wired_gateway' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='255.255.255.0' title='The gateway you want the RoPieee to use.' value= config_rp_network_wired_gateway)
 
 
 
