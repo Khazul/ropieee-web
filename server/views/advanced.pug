@@ -36,9 +36,13 @@ html
                  option(value='beta',  selected=(config_rp_repo=='beta')) Beta
                  option(value='test',  selected=(config_rp_repo=='test')) Test
           div(class='form-group')
-            label(class='control-label col-sm-2' for='auto_update') Auto Update
+            label(class='control-label col-sm-2' for='auto_update') Update Interval
             div(class='col-sm-10')
-              input(type='checkbox' name='auto_update' checked=(config_rp_auto_update=='1') data-toggle='tooltip' title='Select to automatically update RoPieee when updates are available.' disabled)
+              select(class='form-control' name='auto_update' data-toggle='tooltip' title='RoPieee\'s update interval.')
+                 option(value='daily' selected=(config_rp_auto_update=='daily')) Daily
+                 option(value='weekly' selected=(config_rp_auto_update=='weekly')) Weekly
+                 option(value='monthly' selected=(config_rp_auto_update=='monthly')) Monthly
+                 option(value='manual' selected=(config_rp_auto_update=='manual')) Manually
           hr
           button(type='submit' class='btn btn-default') Commit Changes
         br

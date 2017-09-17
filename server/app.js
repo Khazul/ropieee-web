@@ -167,10 +167,6 @@ app.post('/submit', function(req, res) {
 
   if (typeof req.body.audio_usb == 'undefined')   req.body.audio_usb='off'
 
-  // for now auto update is readonly
-  //if (typeof req.body.auto_update == 'undefined') req.body.auto_update='off'
-  req.body.auto_update='on';
-
   if (req.query.config == 'general') {
      console.log('summary for: general');
      console.log('summary:audio: ' + req.body.audio);
@@ -266,8 +262,6 @@ app.post('/commit', function( req, res) {
    // first normalize some stuff
    if (settings.rp_audio_usb == 'on')  settings.rp_audio_usb=1
    if (settings.rp_audio_usb == 'off') settings.rp_audio_usb=0
-   if (settings.rp_auto_update == 'on')  settings.rp_auto_update=1
-   if (settings.rp_auto_update == 'off') settings.rp_auto_update=0
 
    // make a copy
    copy_settings = clone(settings);
