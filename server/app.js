@@ -15,6 +15,7 @@ var bodyParser = require('body-parser');
 var moment = require('moment-timezone');
 var clone = require('clone');
 var config = require('./config');
+var updater = require('./updater');
 var settings = {};
 
 var app = express();
@@ -419,6 +420,11 @@ hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 var state = {}
 state.needs_reboot = false;
 state.update_available = false;
+
+// DEBUG
+updater.get_next_update();
+
+
 
 // let's go!
 app.listen(port, hostname, () => {

@@ -11,7 +11,6 @@ module.exports = {
      var out = {}
      console.log('config:read: reading from ' + SETTINGS_READ);
      out = ini.parse(fs.readFileSync(SETTINGS_READ, 'utf-8'));
-     console.dir(Object.keys(out));
 
      return out
   },
