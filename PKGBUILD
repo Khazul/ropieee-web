@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20170906
+pkgver=20170917
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -38,4 +38,5 @@ echo "package"
    install -m0644 "../server/views/feedback_sent.pug"  "${pkgdir}/opt/RoPieee/web/views/feedback_sent.pug"
    install -m0644 "../server/views/extension.pug"      "${pkgdir}/opt/RoPieee/web/views/extension.pug"
    install -m0644 "../server/views/update.pug"         "${pkgdir}/opt/RoPieee/web/views/update.pug"
+   install -m0644 "../server/views/network.pug"        "${pkgdir}/opt/RoPieee/web/views/network.pug"
 }
