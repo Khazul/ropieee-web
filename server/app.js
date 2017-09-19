@@ -100,6 +100,10 @@ app.get('/network', function(req, res) {
 });
 
 app.get('/advanced', function(req, res) {
+
+  // first get the next update time
+  var next_update_time = updater.get_next_update();
+
   res.render('advanced', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
@@ -117,7 +121,8 @@ app.get('/advanced', function(req, res) {
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
-     config_rp_update_available: state.update_available
+     config_rp_update_available: state.update_available,
+     config_rp_next_update_time: next_update_time
   });
 });
 
@@ -422,7 +427,7 @@ state.needs_reboot = false;
 state.update_available = false;
 
 // DEBUG
-updater.get_next_update();
+console.log("next update on: " + updater.get_next_update());
 
 
 
