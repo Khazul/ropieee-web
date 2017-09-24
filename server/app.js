@@ -47,7 +47,8 @@ app.get('/', function(req, res) {
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
-     config_rp_update_available: state.update_available
+     config_rp_update_available: state.update_available,
+     config_rp_update_busy: state.update_busy
   });
 });
 
@@ -69,7 +70,8 @@ app.get('/display', function(req, res) {
      config_rp_touchscreen_zone: settings.rp_touchscreen_zone,
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
-     config_rp_update_available: state.update_available
+     config_rp_update_available: state.update_available,
+     config_rp_update_busy: state.update_busy
   });
 });
 
@@ -95,7 +97,8 @@ app.get('/network', function(req, res) {
      config_rp_network_wired_method: settings.rp_network_wired_method,
      config_rp_network_wired_ipaddr: settings.rp_network_wired_ipaddr,
      config_rp_network_wired_netmask: settings.rp_network_wired_netmask,
-     config_rp_network_wired_gateway: settings.rp_network_wired_gateway
+     config_rp_network_wired_gateway: settings.rp_network_wired_gateway,
+     config_rp_update_busy: state.update_busy
   });
 });
 
@@ -122,9 +125,45 @@ app.get('/advanced', function(req, res) {
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
-     config_rp_next_update_time: next_update_time
+     config_rp_next_update_time: next_update_time,
+     config_rp_update_busy: state.update_busy
   });
 });
+
+app.get('/start_update', function(req, res) {
+   console.log("START UPDATE");
+   updater.get_updates(cb_update_finished);
+   state.update_busy = true;
+   res.redirect('/');
+});
+
+app.get('/updater', function(req, res) {
+   console.log("DEBUG UPDATER: " + state.update_log);
+
+   if (state.update_interval != 'manual') return;
+  
+   if (state.update_busy == false) {
+      // let's go!
+      state.update_busy = true;
+   }
+
+   res.render('updater', {
+     title: 'Welcome',
+     config_rp_this_hostname: info.hostname,
+     output_log: state.update_log,
+     state: state.update_busy
+   });
+});
+
+function cb_update_finished(return_code) {
+   console.log('update process finished!');
+
+   // we're done.
+   state.update_busy = false;
+
+   // when an update is manual, we require a reboot
+   state.needs_reboot = true;
+}
 
 function query_pacman() {
   console.log('querying pacman for info...');
@@ -164,7 +203,8 @@ app.get('/info', function(req, res) {
      config_rp_this_hostname: info.hostname,
      config_rp_software: software_list,
      config_rp_needs_reboot: state.needs_reboot,
-     config_rp_update_available: state.update_available
+     config_rp_update_available: state.update_available,
+     config_rp_update_busy: state.update_busy
   });
 });
 
@@ -262,7 +302,7 @@ app.post('/commit', function( req, res) {
    // overrule settings for section advanced
    if (req.query.config == 'advanced') {
       settings.rp_repo = req.body.repo
-      settings.rp_auto_update = req.body.update
+      settings.rp_auto_update = state.update_interval = req.body.update
    }
 
    // first normalize some stuff
@@ -425,11 +465,12 @@ hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 var state = {}
 state.needs_reboot = false;
 state.update_available = false;
+state.update_interval = settings.rp_auto_update;
+state.update_busy = false;
+state.update_log = ''
 
-// DEBUG
-console.log("next update on: " + updater.get_next_update());
-
-
+// init update check
+updater.init_updates(state);
 
 // let's go!
 app.listen(port, hostname, () => {

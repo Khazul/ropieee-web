@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title RoPieee [#{config_rp_this_hostname}]
+    meta(http-equiv='refresh' content='1')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' type='text/javascript')
+    link(href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' type='text/javascript')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js' type='text/javascript')
+    script.
+      function updatefields() {
+         console.log('test test test');
+         if (document.getElementById('state').value === 'false') {
+            console.log('UPDATE DONE');
+            window.location.href = '/';
+         }
+      }
+
+  body(onload='updatefields()')
+    div.container
+      include header.pug
+
+      div.container
+          div(class='form-group')
+            label(id='state') #{state}
+          div(class='form-group')
+            label(for='log') Update log:
+            textarea(class='form-control' rows='15' id='log' readOnly=true) #{output_log}
+          hr
+ 

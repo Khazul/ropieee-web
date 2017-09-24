@@ -1,12 +1,16 @@
-div.well(class='well well-sm') 
+div.well(class='well well-sm')
   h4 Welcome to RoPieee.  [#{config_rp_this_hostname}]
 
-if (config_rp_needs_reboot== true)
+if (config_rp_needs_reboot== true && config_rp_update_busy== false)
   div.alert(class='alert alert-danger clearfix')
     button(class='btn btn-metro pull-right' target='_blank' onclick="location.href='/reboot';") Reboot
     h5 Your RoPieee requires a reboot for the changes to take effect.
 
-if (config_rp_update_available== true)
+if (config_rp_update_available== true && config_rp_update_busy== false && config_rp_needs_reboot== false)
   div.alert(class='alert alert-info clearfix')
     button(class='btn btn-metro pull-right' target='_blank' onclick="location.href='/update';") Update
     h5 There is an update available for your RoPieee.
+
+if (config_rp_update_busy== true)
+  div.alert(class='alert alert-success clearfix')
+    h5 RoPieee is busy updating...

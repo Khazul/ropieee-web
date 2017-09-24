@@ -1,15 +1,28 @@
 "use strict";
 
-//var fs = require('fs');
-//var ini = require('ini');
-
-//const SETTINGS_READ = process.env.NODE_SETTINGS || './settings.ini';
-//const SETTINGS_WRITE = "./settings.ini.new";
 const spawnSync = require('child_process').spawnSync;
+const spawn = require('child_process').spawn;
+const UPDATE_INTERVAL = 60 * 60 * 1000; // check every hour when in manual mode
+var state = {};
 
 
 
 module.exports = {
+
+   get_updates: function(callback) {
+      console.log("debug: get_updates...");
+
+      const updates = spawn('/opt/RoPieee/sbin/run-updates', ['']);
+
+      updates.stdout.on('data', (data) => {
+         state.update_log += data;
+      });
+
+      updates.on('close', (code) => {
+         console.log("get_updates finished with exit code: " + code);
+	 callback(code);
+      });
+   },
 
    get_next_update: function() {
       var ret_str='';
@@ -28,6 +41,27 @@ module.exports = {
       //console.log("ok en hier dan: " + ret_str);
 
       return ret_str;
+   },
+
+   check_for_updates: function() {
+      console.log("debug: check_for_updates: " + state.update_interval);
+      if (state.update_interval != 'manual') return;
+      if (state.update_busy == true) return;
+
+      const checker = spawn('/opt/RoPieee/lib/check_for_updates', ['']);
+
+      checker.on('close', (code) => {
+         console.log("check_for_updates finished with exit code: " + code);
+         if (code != 0) state.update_available = true;
+      });
+   },
+
+   init_updates: function(arg) {
+
+      state = arg;
+
+      // start timer for interval check
+      setInterval(module.exports.check_for_updates, UPDATE_INTERVAL);
    }
 };
 
