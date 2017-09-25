@@ -3,8 +3,8 @@ Description=RoPieee Web Page
 After=network.target
 
 [Service]
-WorkingDirectory=/opt/RoPieee/web
-ExecStart=/usr/bin/node /opt/RoPieee/web/app.js
+WorkingDirectory=/opt/RoPieee/webpage
+ExecStart=/usr/bin/node /opt/RoPieee/webpage/app.js
 Restart=always
 RestartSec=10
 SyslogIdentifier=ropieee-web

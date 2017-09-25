@@ -1,21 +1,18 @@
 post_install()
 {
-   cd /opt/RoPieee/web
-   npm install
-
    systemctl daemon-reload
 }
 
 post_upgrade()
 {
-   cd /opt/RoPieee/web
-   npm cache verify
-   rm -rf /opt/RoPieee/web/node_modules
-   npm install
+#   cd /opt/RoPieee/web
+#   npm cache verify
+#   rm -rf /opt/RoPieee/web/node_modules
+#   npm install
 
    systemctl daemon-reload
-   if systemctl is-enabled ropieee1-web
+   if systemctl is-enabled ropieee-web
    then
-     systemctl restart ropieee1-web
+     systemctl restart ropieee-web
    fi
 }
