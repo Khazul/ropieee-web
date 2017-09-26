@@ -3,6 +3,12 @@ post_install()
    systemctl daemon-reload
 }
 
+pre_upgrade()
+{
+   # first stop the old one, as we're gonna change service names
+   systemctl stop ropieee1-web
+}
+
 post_upgrade()
 {
 #   cd /opt/RoPieee/web
@@ -11,8 +17,5 @@ post_upgrade()
 #   npm install
 
    systemctl daemon-reload
-   if systemctl is-enabled ropieee-web
-   then
-     systemctl restart ropieee-web
-   fi
+   systemctl restart ropieee-web
 }
