@@ -16,6 +16,7 @@ install=${pkgname}.install
 build() {
 echo "build"
    cd ${srcdir}/web/server
+   rm -rf node_modules
    # npm -g --production --prefix="${pkgdir}/opt/RoPieee/web" install
    npm --production install
 }
