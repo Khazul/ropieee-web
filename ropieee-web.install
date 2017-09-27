@@ -17,6 +17,7 @@ post_upgrade()
 #   npm install
 
    systemctl daemon-reload
+   systemctl enable ropieee-web
    systemctl restart ropieee-web
 
    # ok, let's get rid of the 'old' directory
