@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20170926
+pkgver=20171010
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -27,6 +27,7 @@ echo "package"
 
    install -d "${pkgdir}/opt/RoPieee/webpage"
    install -d "${pkgdir}/opt/RoPieee/webpage/views"
+   install -d "${pkgdir}/opt/RoPieee/webpage/static"
    install -d "${pkgdir}/etc/systemd/system"
 
    cp -R "${srcdir}/web/server/node_modules"                      "${pkgdir}/opt/RoPieee/webpage"
@@ -52,4 +53,5 @@ echo "package"
    install -m0644 "${srcdir}/web/server/views/update.pug"         "${pkgdir}/opt/RoPieee/webpage/views/update.pug"
    install -m0644 "${srcdir}/web/server/views/network.pug"        "${pkgdir}/opt/RoPieee/webpage/views/network.pug"
    install -m0644 "${srcdir}/web/server/views/footer.pug"         "${pkgdir}/opt/RoPieee/webpage/views/footer.pug"
+   install -m0644 "${srcdir}/web/server/static/sticky-footer.css" "${pkgdir}/opt/RoPieee/webpage/static/sticky-footer.css"
 }
