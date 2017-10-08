@@ -8,6 +8,7 @@ url="https://github.com/RoPieee/ropieee-web"
 license=('MIT')
 depends=('nodejs'
          'npm')
+options=('!strip')
 source=('web::git://github.com/RoPieee/ropieee-web.git#branch=master')
 md5sums=('SKIP')
 install=${pkgname}.install
