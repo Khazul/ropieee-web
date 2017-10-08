@@ -19,7 +19,7 @@ echo "build"
    cd ${srcdir}/web/server
    rm -rf node_modules
    # npm -g --production --prefix="${pkgdir}/opt/RoPieee/web" install
-   npm --production install
+   npm --verbose --production install
 }
 
 package() {
@@ -51,4 +51,5 @@ echo "package"
    install -m0644 "${srcdir}/web/server/views/extension.pug"      "${pkgdir}/opt/RoPieee/webpage/views/extension.pug"
    install -m0644 "${srcdir}/web/server/views/update.pug"         "${pkgdir}/opt/RoPieee/webpage/views/update.pug"
    install -m0644 "${srcdir}/web/server/views/network.pug"        "${pkgdir}/opt/RoPieee/webpage/views/network.pug"
+   install -m0644 "${srcdir}/web/server/views/footer.pug"         "${pkgdir}/opt/RoPieee/webpage/views/footer.pug"
 }

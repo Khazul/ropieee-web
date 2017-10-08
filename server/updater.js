@@ -2,12 +2,27 @@
 
 const spawnSync = require('child_process').spawnSync;
 const spawn = require('child_process').spawn;
+const fs = require('fs');
 const UPDATE_INTERVAL = 60 * 60 * 1000; // check every hour when in manual mode
 var state = {};
 
 
 
 module.exports = {
+
+   get_current_version: function() {
+      try {
+         var buffer = fs.readFileSync('/etc/ropieee_version', 'utf8').toString();
+      } catch (err) {
+         // something went wrong
+	 console.log('version file not found!');
+	 return;
+      }
+
+      state.version = buffer.slice(0, buffer.length - 1);
+      //state.version = buffer;
+      //console.log('current RoPieee version = ' + buffer);
+   },
 
    get_updates: function(callback) {
       console.log("debug: get_updates...");
@@ -60,6 +75,9 @@ module.exports = {
 
       state = arg;
 
+      // let's see what the current version is
+      module.exports.get_current_version();
+	
       // start timer for interval check
       setInterval(module.exports.check_for_updates, UPDATE_INTERVAL);
    }

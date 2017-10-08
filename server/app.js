@@ -48,7 +48,8 @@ app.get('/', function(req, res) {
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
-     config_rp_update_busy: state.update_busy
+     config_rp_update_busy: state.update_busy,
+     config_rp_version: state.version
   });
 });
 
@@ -467,10 +468,14 @@ state.needs_reboot = false;
 state.update_available = false;
 state.update_interval = settings.rp_auto_update;
 state.update_busy = false;
-state.update_log = ''
+state.update_log = '';
+state.version = 'unknown';
 
 // init update check
 updater.init_updates(state);
+
+// show which version we're running
+console.log("RoPieee version: " + state.version);
 
 // let's go!
 app.listen(port, hostname, () => {
