@@ -72,7 +72,8 @@ app.get('/display', function(req, res) {
      config_rp_repo: settings.rp_repo,
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
-     config_rp_update_busy: state.update_busy
+     config_rp_update_busy: state.update_busy,
+     config_rp_version: state.version
   });
 });
 
@@ -99,7 +100,8 @@ app.get('/network', function(req, res) {
      config_rp_network_wired_ipaddr: settings.rp_network_wired_ipaddr,
      config_rp_network_wired_netmask: settings.rp_network_wired_netmask,
      config_rp_network_wired_gateway: settings.rp_network_wired_gateway,
-     config_rp_update_busy: state.update_busy
+     config_rp_update_busy: state.update_busy,
+     config_rp_version: state.version
   });
 });
 
@@ -127,7 +129,8 @@ app.get('/advanced', function(req, res) {
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
      config_rp_next_update_time: next_update_time,
-     config_rp_update_busy: state.update_busy
+     config_rp_update_busy: state.update_busy,
+     config_rp_version: state.version
   });
 });
 
@@ -205,14 +208,15 @@ app.get('/info', function(req, res) {
      config_rp_software: software_list,
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
-     config_rp_update_busy: state.update_busy
+     config_rp_update_busy: state.update_busy,
+     config_rp_version: state.version
   });
 });
 
 app.post('/submit', function(req, res) {
   console.log('submitting changes for: ' + req.query.config);
 
-  if (typeof req.body.audio_usb == 'undefined')   req.body.audio_usb='off'
+  if (typeof req.body.audio_usb == 'undefined') req.body.audio_usb='off'
 
   if (req.query.config == 'general') {
      console.log('summary for: general');
