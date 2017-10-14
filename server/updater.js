@@ -67,7 +67,7 @@ module.exports = {
 
       checker.on('close', (code) => {
          console.log("check_for_updates finished with exit code: " + code);
-         if (code != 0) state.update_available = true;
+         if (code == 0) state.update_available = true;
       });
    },
 
