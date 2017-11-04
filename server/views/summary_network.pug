@@ -1,0 +1,60 @@
+doctype html
+html
+  include head.pug
+
+  body
+    div.container
+      include header.pug
+
+      div.container
+        br
+        h5 Here's a summary of your network settings. When you're sure you can save these. Depending on the settings RoPieee might require a reboot.
+        h3 Wired
+
+        if (config_rp_network_wired_method== 'dhcp')
+          form(class='form-horizontal' action='/commit?config=network' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Configuration Method
+              div(class='col-sm-10')
+                input(class='form-control' name='wired_method' value= config_rp_network_wired_method readonly)
+
+            if (config_rp_hardware== 'unknown')
+            hr
+            h3 Wireless
+            form(class='form-horizontal' action='/commit?config=advanced' method='post')
+              div(class='form-group')
+                label(class='control-label col-sm-2') Wireless Enabled
+                div(class='col-sm-10')
+                  input(class='form-control' name='wireless_enabled' value= config_rp_wireless_enabled readonly)
+
+          hr
+          div.container
+            div(class='btn-toolbar')
+              button(type='submit' class='btn btn-primary btn-sm') Save Changes
+              button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+
+        if (config_rp_network_wired_method== 'static')
+          form(class='form-horizontal' action='/commit?config=network' method='post')
+            div(class='form-group')
+              label(class='control-label col-sm-2') Configuration Method
+              div(class='col-sm-10')
+                input(class='form-control' name='wired_method' value= config_rp_network_wired_method readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') IP Address
+              div(class='col-sm-10')
+                input(class='form-control' name='wired_ipaddr' value= config_rp_network_wired_ipaddr readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') IP Netmask
+              div(class='col-sm-10')
+                input(class='form-control' name='wired_netmask' value= config_rp_network_wired_netmask readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Gateway
+              div(class='col-sm-10')
+                input(class='form-control' name='wired_gateway' value= config_rp_network_wired_gateway readonly)
+
+            hr
+            div.container
+              div(class='btn-toolbar')
+                button(type='submit' class='btn btn-primary btn-sm') Save Changes
+                button(type='button' class='btn btn-default btn-sm' value='cancel' target='_blank', onclick="location.href='/';") Cancel
+

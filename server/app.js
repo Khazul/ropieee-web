@@ -16,6 +16,7 @@ var moment = require('moment-timezone');
 var clone = require('clone');
 var config = require('./config');
 var updater = require('./updater');
+var helpers = require('./helpers');
 var settings = {};
 
 var app = express();
@@ -101,7 +102,8 @@ app.get('/network', function(req, res) {
      config_rp_network_wired_netmask: settings.rp_network_wired_netmask,
      config_rp_network_wired_gateway: settings.rp_network_wired_gateway,
      config_rp_update_busy: state.update_busy,
-     config_rp_version: state.version
+     config_rp_version: state.version,
+     config_rp_hardware: state.hardware
   });
 });
 
@@ -217,6 +219,7 @@ app.post('/submit', function(req, res) {
   console.log('submitting changes for: ' + req.query.config);
 
   if (typeof req.body.audio_usb == 'undefined') req.body.audio_usb='off'
+  if (typeof req.body.wireless_enabled == 'undefined') req.body.wireless_enabled='off'
 
   if (req.query.config == 'general') {
      console.log('summary for: general');
@@ -249,13 +252,15 @@ app.post('/submit', function(req, res) {
   if (req.query.config == 'network') {
      console.log('summary for: network');
      console.log('summary:network: ' + req.body.wired_method);
-     res.render('summary', {
+     res.render('summary_network', {
 	toggle_rp: 'network',
         config_rp_network_wired_method: req.body.wired_method,
         config_rp_network_wired_ipaddr: req.body.wired_ip_addr,
         config_rp_network_wired_netmask: req.body.wired_netmask,
         config_rp_network_wired_gateway: req.body.wired_gateway,
-        config_rp_this_hostname: info.hostname
+        config_rp_this_hostname: info.hostname,
+        config_rp_hardware: state.hardware,
+	config_rp_wireless_enabled: req.body.wireless_enabled
      });
   }
 
@@ -300,6 +305,9 @@ app.post('/commit', function( req, res) {
       settings.rp_network_wired_ipaddr = req.body.wired_ipaddr
       settings.rp_network_wired_netmask = req.body.wired_netmask
       settings.rp_network_wired_gateway = req.body.wired_gateway
+
+      settings.rp_network_wireless_enabled = req.body.wireless_enabled;
+      wifi.enabled = settings.rp_network_wireless_enabled;
 
       state.needs_reboot = true;
    }
@@ -475,12 +483,21 @@ state.update_interval = settings.rp_auto_update;
 state.update_busy = false;
 state.update_log = '';
 state.version = 'unknown';
+state.hardware = helpers.get_hardware_model();
+
+var wifi = {}
+wifi.enabled = false
+
+
 
 // init update check
 updater.init_updates(state);
 
 // show which version we're running
 console.log("RoPieee version: " + state.version);
+
+// which hardware?
+console.log("detected hardware: " + state.hardware);
 
 // let's go!
 app.listen(port, hostname, () => {

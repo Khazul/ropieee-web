@@ -38,7 +38,7 @@ html
 
         br
         h5 This section contains the settings for RoPieee's network configuration.
-        br
+        h3 Wired
 
         form(class='form-horizontal' action='/submit?config=network' method='post')
           div(class='form-group')
@@ -59,6 +59,14 @@ html
             label(class='control-label col-sm-2' for='ip_address') Gateway
             div(class='col-sm-10')
               input(type='text' class='form-control' name='wired_gateway' id='wired_gateway' required pattern='(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)_*){3}' placeholder='255.255.255.0' title='The gateway you want the RoPieee to use.' value= config_rp_network_wired_gateway)
+
+          if (config_rp_hardware== 'unknown')
+            hr
+            h3 Wireless
+            div(class='form-group')
+              label(class='control-label col-sm-2' for='enable_wifi') Enable WiFi 
+              div(class='col-sm-10')
+                input(type='checkbox' name='wireless_enabled' checked=(config_rp_wireless_enabled=='1') data-toggle='tooltip' title='Select to enable WiFi.')
           hr
           button(type='submit' class='btn btn-default') Commit Changes
 
