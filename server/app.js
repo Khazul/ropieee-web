@@ -31,6 +31,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
+
+  // first kick off some stuff
+  if (wifi.enabled)
+     helpers.get_wifi_networks(wifi)
+
   res.render('general', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
@@ -101,6 +106,10 @@ app.get('/network', function(req, res) {
      config_rp_network_wired_ipaddr: settings.rp_network_wired_ipaddr,
      config_rp_network_wired_netmask: settings.rp_network_wired_netmask,
      config_rp_network_wired_gateway: settings.rp_network_wired_gateway,
+     config_rp_network_wireless_enabled: settings.rp_network_wireless_enabled,
+     config_rp_network_wireless_essid: settings.rp_network_wireless_essid,
+     config_rp_network_wireless_psk: settings.rp_network_wireless_psk,
+     config_rp_network_wireless_networks: wifi.networks,
      config_rp_update_busy: state.update_busy,
      config_rp_version: state.version,
      config_rp_hardware: state.hardware
@@ -260,7 +269,9 @@ app.post('/submit', function(req, res) {
         config_rp_network_wired_gateway: req.body.wired_gateway,
         config_rp_this_hostname: info.hostname,
         config_rp_hardware: state.hardware,
-	config_rp_wireless_enabled: req.body.wireless_enabled
+	config_rp_wireless_enabled: req.body.wireless_enabled,
+	config_rp_network_wireless_essid: req.body.wireless_essid,
+	config_rp_network_wireless_psk: req.body.wireless_psk
      });
   }
 
@@ -307,6 +318,8 @@ app.post('/commit', function( req, res) {
       settings.rp_network_wired_gateway = req.body.wired_gateway
 
       settings.rp_network_wireless_enabled = req.body.wireless_enabled;
+      settings.rp_network_wireless_essid = req.body.wireless_essid;
+      settings.rp_network_wireless_psk = req.body.wireless_psk;
       wifi.enabled = settings.rp_network_wireless_enabled;
 
       state.needs_reboot = true;
@@ -321,6 +334,8 @@ app.post('/commit', function( req, res) {
    // first normalize some stuff
    if (settings.rp_audio_usb == 'on')  settings.rp_audio_usb=1
    if (settings.rp_audio_usb == 'off') settings.rp_audio_usb=0
+   if (settings.rp_network_wireless_enabled == 'on')  settings.rp_network_wireless_enabled=1
+   if (settings.rp_network_wireless_enabled == 'off') settings.rp_network_wireless_enabled=0
 
    // make a copy
    copy_settings = clone(settings);
@@ -487,8 +502,12 @@ state.hardware = helpers.get_hardware_model();
 
 var wifi = {}
 wifi.enabled = false
+wifi.networks = new Array();
 
-
+if (settings.rp_network_wireless_enabled == '1') {
+   wifi.enabled = true
+   helpers.get_wifi_networks(wifi)
+}
 
 // init update check
 updater.init_updates(state);
