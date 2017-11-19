@@ -227,8 +227,8 @@ app.get('/info', function(req, res) {
 app.post('/submit', function(req, res) {
   console.log('submitting changes for: ' + req.query.config);
 
-  if (typeof req.body.audio_usb == 'undefined') req.body.audio_usb='off'
-  if (typeof req.body.wireless_enabled == 'undefined') req.body.wireless_enabled='off'
+  if (typeof req.body.audio_usb === 'undefined') req.body.audio_usb='off'
+  if (typeof req.body.wireless_enabled === 'undefined') req.body.wireless_enabled='off'
 
   if (req.query.config == 'general') {
      console.log('summary for: general');
@@ -260,7 +260,6 @@ app.post('/submit', function(req, res) {
 
   if (req.query.config == 'network') {
      console.log('summary for: network');
-     console.log('summary:network: ' + req.body.wired_method);
      res.render('summary_network', {
 	toggle_rp: 'network',
         config_rp_network_wired_method: req.body.wired_method,
@@ -312,6 +311,9 @@ app.post('/commit', function( req, res) {
 
    // overrule settings for section network
    if (req.query.config == 'network') {
+
+      if (typeof req.body.wireless_enabled === 'undefined') req.body.wireless_enabled='off'
+
       settings.rp_network_wired_method = req.body.wired_method
       settings.rp_network_wired_ipaddr = req.body.wired_ipaddr
       settings.rp_network_wired_netmask = req.body.wired_netmask
