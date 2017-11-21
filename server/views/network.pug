@@ -27,8 +27,11 @@ html
         ul(class='nav nav-tabs')
            li(role='presentation')
               a(href='/') General
-           li(role='Display')
-              a(href='/display') Display
+
+           if (config_rp_touchscreen_detected== '1')
+             li(role='Display')
+                a(href='/display') Display
+
            li(role='Network' class='active')
               a(href='/network') Network
            li(role='presentation')
