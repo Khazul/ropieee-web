@@ -268,7 +268,7 @@ app.post('/submit', function(req, res) {
         config_rp_network_wired_gateway: req.body.wired_gateway,
         config_rp_this_hostname: info.hostname,
         config_rp_hardware: state.hardware,
-	config_rp_wireless_enabled: req.body.wireless_enabled,
+	config_rp_network_wireless_enabled: req.body.wireless_enabled,
 	config_rp_network_wireless_essid: req.body.wireless_essid,
 	config_rp_network_wireless_psk: req.body.wireless_psk
      });
