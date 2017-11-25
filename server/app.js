@@ -84,6 +84,11 @@ app.get('/display', function(req, res) {
 });
 
 app.get('/network', function(req, res) {
+	
+  // first kick off some stuff
+  if (wifi.enabled)
+     helpers.get_wifi_networks(wifi)
+
   res.render('network', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,

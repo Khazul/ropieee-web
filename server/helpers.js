@@ -33,16 +33,6 @@ module.exports = {
       }
 
       console.log("wifi networks discovered: " + wifi.networks);
-
-      //wifi.networks = splits;
-      //var myArray = splits
-      //wifi.networks = Array(splits.split(","));
-      //console.log("wifi networks 0: " + wifi.networks[0]);
-	   
-     // if (module.exports.isEmpty(s)) s = 'unknown';
-     // return s.trim();
    }
-
-
 };
 
