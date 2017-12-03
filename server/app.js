@@ -506,6 +506,7 @@ state.update_busy = false;
 state.update_log = '';
 state.version = 'unknown';
 state.hardware = helpers.get_hardware_model();
+//state.hardware = "rpi3";
 
 var wifi = {}
 wifi.enabled = false
