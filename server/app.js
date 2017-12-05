@@ -496,6 +496,7 @@ hats["iqaudio-digi-wm8804-audio"]         = "IQaudIO Pi-Digi+";
 hats["iqaudio-dacplus,unmute_amp"]        = "IQaudIO Pi-DigiAMP+";
 hats["iqaudio-dacplus"]                   = "IQaudIO Pi-DAC(+/PRO/Zero)";
 hats["justboom-dac"]                      = "Justboom Amp HAT, DAC HAT";
+hats["justboom-digi"]                     = "Justboom Digi HAT";
 hats["rpi-dac"]                           = "Raspberry Pi DAC (I2S)";
 
 var state = {}
