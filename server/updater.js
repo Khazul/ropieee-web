@@ -80,6 +80,9 @@ module.exports = {
 	
       // start timer for interval check
       setInterval(module.exports.check_for_updates, UPDATE_INTERVAL);
+
+      // and do a first check
+      module.exports.check_for_updates();
    }
 };
 
