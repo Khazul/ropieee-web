@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20171119
+pkgver=20180331
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -18,7 +18,6 @@ build() {
 echo "build"
    cd ${srcdir}/web/server
    rm -rf node_modules
-   # npm -g --production --prefix="${pkgdir}/opt/RoPieee/web" install
    npm --verbose --production install
 }
 
