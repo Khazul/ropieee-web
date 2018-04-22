@@ -486,6 +486,7 @@ hats["allo-boss-dac-pcm512x-audio"]       = "Allo BOSS DAC";
 hats["allo-digione"]                      = "Allo DigiOne";
 hats["allo-piano-dac-pcm512x-audio"]      = "Allo Piano DAC";
 hats["allo-piano-dac-plus-pcm512x-audio"] = "Allo Piano DAC 2.1";
+hats["applepi-dac"]                       = "Orchard Audio ApplePi DAC (*)";
 hats["virtual-audiophonics"]              = "Audiophonics ES9028Q2M";
 hats["hifiberry-amp"]                     = "HifiBerry AMP/AMP+";
 hats["hifiberry-dac"]                     = "HifiBerry DAC";
