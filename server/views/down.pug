@@ -1,0 +1,16 @@
+doctype html
+html
+  include head.pug
+
+  body
+    div.container
+      div.well(class='well well-sm')
+        h4 Welcome to Ambre.  [#{config_rp_this_hostname}]
+      div.container
+        br
+        h4 Your Ambre is rebooting. This takes about a minute before the webpage is available again.
+        br
+        hr
+        div.container
+          div(class='btn-toolbar')
+            button(type='button' class='btn btn-default' value='home' target='_blank' onclick="location.href='/';") Reload

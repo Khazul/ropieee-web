@@ -442,9 +442,10 @@ app.get('/godown', function(req, res) {
    console.log('type: ' + req.query.reboot);
    var godown;
 
-   res.redirect('/');
-
    if (req.query.reboot) {
+      res.render('down', {
+         config_rp_this_hostname: info.hostname,
+         unique: req.query.unique });
       console.log('REBOOT');
       godown = spawn('systemctl', ['reboot']);
    }
