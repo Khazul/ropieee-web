@@ -89,6 +89,12 @@ app.get('/network', function(req, res) {
   if (wifi.enabled)
      helpers.get_wifi_networks(wifi)
 
+  var network_config = {}
+  network_config = helpers.get_active_network_config()
+  console.log("wired config: " + JSON.stringify(network_config, null, '  '));
+  console.log("wired ip addr: " + network_config.wired.address);
+  console.log("default gw: " + network_config.default_gw);
+
   res.render('network', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
@@ -117,7 +123,11 @@ app.get('/network', function(req, res) {
      config_rp_network_wireless_networks: wifi.networks,
      config_rp_update_busy: state.update_busy,
      config_rp_version: state.version,
-     config_rp_hardware: state.hardware
+     config_rp_hardware: state.hardware,
+     config_rp_network_config_wired_addr: network_config.wired.address,
+     config_rp_network_config_wired_netmask: network_config.wired.netmask,
+     config_rp_network_config_wired_broadcast: network_config.wired.broadcast,
+     config_rp_network_config_default_gw: network_config.default_gw
   });
 });
 

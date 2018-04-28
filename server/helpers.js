@@ -33,6 +33,16 @@ module.exports = {
       }
 
       console.log("wifi networks discovered: " + wifi.networks);
+   },
+
+   get_active_network_config: function() {
+      var config = {};
+      var proc = spawnSync('/opt/RoPieee/lib/get_active_network_config', ['']);
+
+      config = JSON.parse(proc.stdout);
+      console.log("network configuration object: " + JSON.stringify(config, null, '  '));
+
+      return config;
    }
 };
 

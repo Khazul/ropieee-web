@@ -11,6 +11,11 @@ html
             document.getElementById('wired_ip_addr').readOnly = true;
             document.getElementById('wired_netmask').readOnly = true;
             document.getElementById('wired_gateway').readOnly = true;
+        
+            document.getElementById('wired_ip_addr').value = "#{config_rp_network_config_wired_addr}";
+            document.getElementById('wired_netmask').value = "#{config_rp_network_config_wired_netmask}";
+            document.getElementById('wired_gateway').value = "#{config_rp_network_config_default_gw}";
+
          } else {
             console.log('readonly is false');
             document.getElementById('wired_ip_addr').readOnly = false;
