@@ -1,7 +1,7 @@
 # Maintainer: Harry ten Berge <htenberge@gmail.com>
 
 pkgname=ropieee-web
-pkgver=20180331
+pkgver=20180428
 pkgrel=1
 arch=(any)
 url="https://github.com/RoPieee/ropieee-web"
@@ -12,6 +12,7 @@ options=('!strip')
 source=('web::git://github.com/RoPieee/ropieee-web.git#branch=master')
 md5sums=('SKIP')
 install=${pkgname}.install
+
 
 
 build() {
