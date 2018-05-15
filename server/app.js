@@ -91,8 +91,7 @@ app.get('/network', function(req, res) {
 
   var network_config = {}
   network_config = helpers.get_active_network_config()
-  console.log("wired config: " + JSON.stringify(network_config, null, '  '));
-  console.log("wired ip addr: " + network_config.wired.address);
+  console.log("network config: " + JSON.stringify(network_config, null, '  '));
   console.log("default gw: " + network_config.default_gw);
 
   res.render('network', {
@@ -360,6 +359,7 @@ app.post('/commit', function( req, res) {
    // quotes around some variables
    copy_settings.rp_touchscreen_zone = '\'' + settings.rp_touchscreen_zone + '\'';
    copy_settings.rp_network_wireless_essid = '\'' + settings.rp_network_wireless_essid + '\'';
+   copy_settings.rp_network_wireless_psk = '\'' + settings.rp_network_wireless_psk + '\'';
 
    var tmpfile = config.write_json( settings );
    console.log('config (json) written to: ' + tmpfile);
