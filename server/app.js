@@ -356,7 +356,10 @@ app.post('/commit', function( req, res) {
 
    // make a copy
    copy_settings = clone(settings);
+
+   // quotes around some variables
    copy_settings.rp_touchscreen_zone = '\'' + settings.rp_touchscreen_zone + '\'';
+   copy_settings.rp_network_wireless_essid = '\'' + settings.rp_network_wireless_essid + '\'';
 
    var tmpfile = config.write_json( settings );
    console.log('config (json) written to: ' + tmpfile);
