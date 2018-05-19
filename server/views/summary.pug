@@ -28,10 +28,6 @@ html
                 input(class='form-control' name='audio_usb' value= config_rp_audio_usb readonly)
             hr
             div(class='form-group')
-              label(class='control-label col-sm-2') Reboot time
-              div(class='col-sm-10')
-                input(class='form-control' name='reboottime' value= config_rp_reboottime readonly)
-            div(class='form-group')
               label(class='control-label col-sm-2') Timezone
               div(class='col-sm-10')
                 input(class='form-control' name='timezone' value= config_rp_timezone readonly)
@@ -67,6 +63,15 @@ html
               label(class='control-label col-sm-2') Update Interval
               div(class='col-sm-10')
                 input(class='form-control' name='update' value= config_rp_auto_update readonly)
+            hr
+            div(class='form-group')
+              label(class='control-label col-sm-2') Reboot Schedule
+              div(class='col-sm-10')
+                input(class='form-control' name='reboot_schedule' value= config_rp_reboot_schedule readonly)
+            div(class='form-group')
+              label(class='control-label col-sm-2') Reboot time
+              div(class='col-sm-10')
+                input(class='form-control' name='reboottime' value= config_rp_reboottime readonly)
             hr
             div.container
               div(class='btn-toolbar')

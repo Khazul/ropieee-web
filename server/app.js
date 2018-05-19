@@ -39,7 +39,6 @@ app.get('/', function(req, res) {
   res.render('general', {
      title: 'Welcome',
      config_rp_hostname: settings.rp_hostname,
-     config_rp_reboottime: settings.rp_reboottime,
      config_rp_auto_update: settings.rp_auto_update,
      config_rp_audio: settings.rp_audio,
      config_rp_audio_usb: settings.rp_audio_usb,
@@ -155,7 +154,8 @@ app.get('/advanced', function(req, res) {
      config_rp_update_available: state.update_available,
      config_rp_next_update_time: next_update_time,
      config_rp_update_busy: state.update_busy,
-     config_rp_version: state.version
+     config_rp_version: state.version,
+     config_rp_reboot_schedule: settings.rp_reboot_schedule
   });
 });
 
@@ -246,13 +246,11 @@ app.post('/submit', function(req, res) {
 
   if (req.query.config == 'general') {
      console.log('summary for: general');
-     console.log('summary:audio: ' + req.body.audio);
      res.render('summary', {
 	toggle_rp: 'general',
         config_rp_hostname: req.body.hostname,
 	config_rp_audio: req.body.audio,
 	config_rp_audio_usb: req.body.audio_usb,
-	config_rp_reboottime: req.body.reboottime,
 	config_rp_timezone: req.body.timezone,
         config_rp_hat: hats[req.body.audio],
         config_rp_this_hostname: info.hostname
@@ -290,12 +288,13 @@ app.post('/submit', function(req, res) {
 
   if (req.query.config == 'advanced') {
      console.log('summary for: advanced');
-     console.log('summary:advanced: ' + req.body.repo);
      res.render('summary', {
 	toggle_rp: 'advanced',
         config_rp_repo: req.body.repo,
         config_rp_auto_update: req.body.auto_update,
-        config_rp_this_hostname: info.hostname
+        config_rp_this_hostname: info.hostname,
+	config_rp_reboottime: req.body.reboottime,
+        config_rp_reboot_schedule: req.body.reboot_schedule
      });
   }
 });
@@ -304,12 +303,11 @@ app.post('/commit', function( req, res) {
    var copy_settings = {};
    console.log('committing changes for: ' + req.query.config);
 
-   // overrule settings for section general
+   // overrule settings for section eeneral
    if (req.query.config == 'general') {
       settings.rp_hostname   = req.body.hostname
       settings.rp_audio      = req.body.audio
       settings.rp_audio_usb  = req.body.audio_usb 
-      settings.rp_reboottime = req.body.reboottime 
       settings.rp_timezone   = req.body.timezone 
  
       state.needs_reboot = true;
@@ -345,6 +343,8 @@ app.post('/commit', function( req, res) {
    if (req.query.config == 'advanced') {
       settings.rp_repo = req.body.repo
       settings.rp_auto_update = state.update_interval = req.body.update
+      settings.rp_reboottime = req.body.reboottime
+      settings.rp_reboot_schedule = req.body.reboot_schedule
    }
 
    // first normalize some stuff
@@ -442,9 +442,10 @@ app.get('/godown', function(req, res) {
    console.log('type: ' + req.query.reboot);
    var godown;
 
-   res.redirect('/');
-
    if (req.query.reboot) {
+      res.render('down', {
+         config_rp_this_hostname: info.hostname,
+         unique: req.query.unique });
       console.log('REBOOT');
       godown = spawn('systemctl', ['reboot']);
    }

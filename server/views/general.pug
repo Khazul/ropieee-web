@@ -43,10 +43,6 @@ html
               input(type='checkbox' name='audio_usb' checked=(config_rp_audio_usb=='1') data-toggle='tooltip' title='Select to enable USB audio. This can be used in parallel with an Audio HAT.')
           hr
           div(class='form-group')
-            label(class='control-label col-sm-2' for='hat') Reboot time
-            div(class='col-sm-10')
-              input(class='form-control' name='reboottime' type='time' data-toggle='tooltip' title='Every 24 hours the RoPieee wants to reboot. With this setting you can specify how late this will happen.' required pattern='([01]?[0-9]|2[0-3]):[0-5][0-9]' value= config_rp_reboottime)
-          div(class='form-group')
             label(class='control-label col-sm-2' for='tzone') Timezone
             div(class='col-sm-10')
               select(class='form-control' name='timezone' data-toggle='tooltip' title='Select the corresponding timezone in which the RoPieee is located.')
