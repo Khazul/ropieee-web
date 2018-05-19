@@ -36,12 +36,13 @@ html
                  option(value='beta',  selected=(config_rp_repo=='beta')) Beta
                  option(value='test',  selected=(config_rp_repo=='test')) Test
           div(class='form-group')
-            label(class='control-label col-sm-2' for='auto_update') Update Interval
+            label(class='control-label col-sm-2' for='auto_update') Update Schedule
             div(class='col-sm-10')
-              select(class='form-control' name='auto_update' data-toggle='tooltip' title='RoPieee\'s update interval.')
+              select(class='form-control' name='auto_update' data-toggle='tooltip' title='When do you want RoPieee to check for updates.')
                  option(value='daily' selected=(config_rp_auto_update=='daily')) Daily
                  option(value='weekly' selected=(config_rp_auto_update=='weekly')) Weekly
                  option(value='monthly' selected=(config_rp_auto_update=='monthly')) Monthly
+                 option(value='on_boot' selected=(config_rp_auto_update=='on_boot')) On Boot
                  option(value='manual' selected=(config_rp_auto_update=='manual')) Manually
           div(class='form-group')
             label(class='control-label col-sm-2') Next Sync
