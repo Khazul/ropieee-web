@@ -9,6 +9,16 @@ module.exports = {
       return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null || value === 'null';
    },
 
+   get_temperature: function() {
+      var ret_str='';
+      var proc = spawnSync('/opt/RoPieee/lib/get_temperature', ['']);
+
+      var s = String(proc.stdout);
+	   
+      if (module.exports.isEmpty(s)) s = 'unknown';
+      return s.trim();
+   },
+
    get_hardware_model: function() {
       var ret_str='';
       var proc = spawnSync('/opt/RoPieee/lib/get_hardware_model', ['']);

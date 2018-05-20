@@ -21,14 +21,17 @@ html
               a(href='/advanced') Advanced
            li(role='presentation' class='active')
               a(href='/info') Information
-
-
         br
         h3 You're running RoPieee version 
           span(class='label label-primary') #{config_rp_version} 
+        hr
+        div(class='form-group')
+          label(class='control-label col-sm-2') Board Temperature
+          div(class='col-sm-10')
+            input(class='form-control' name='temperature' value= config_rp_temperature readonly)
+        br
         br
         hr
-        br
         h5 This table shows the list of RoPieee's software components and their version numbers.
         br
 
@@ -43,7 +46,6 @@ html
                 tr
                 td #{key}
                 td #{val}
-          
     br
     br 
     include footer.pug
