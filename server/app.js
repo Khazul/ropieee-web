@@ -131,9 +131,6 @@ app.get('/network', function(req, res) {
 
 app.get('/advanced', function(req, res) {
 
-  // get board temperature
-  state.temperature = helpers.get_temperature();
-
   // first get the next update time
   var next_update_time = updater.get_next_update();
 
@@ -158,8 +155,7 @@ app.get('/advanced', function(req, res) {
      config_rp_next_update_time: next_update_time,
      config_rp_update_busy: state.update_busy,
      config_rp_version: state.version,
-     config_rp_reboot_schedule: settings.rp_reboot_schedule,
-     config_rp_temperature: state.temperature
+     config_rp_reboot_schedule: settings.rp_reboot_schedule
   });
 });
 
@@ -218,6 +214,10 @@ function query_pacman() {
 }
 
 app.get('/info', function(req, res) {
+	//
+  // get board temperature
+  state.temperature = helpers.get_temperature();
+
   var software_installed = query_pacman();
   var software_list = {};
   software_list['ropieee']               = software_installed['ropieee'];
@@ -241,7 +241,8 @@ app.get('/info', function(req, res) {
      config_rp_needs_reboot: state.needs_reboot,
      config_rp_update_available: state.update_available,
      config_rp_update_busy: state.update_busy,
-     config_rp_version: state.version
+     config_rp_version: state.version,
+     config_rp_temperature: state.temperature
   });
 });
 
