@@ -225,10 +225,13 @@ app.get('/info', function(req, res) {
   software_list['ropieee-web']           = software_installed['ropieee-web'];
   software_list['linux-raspberrypi-dsd'] = software_installed['linux-raspberrypi-dsd'];
 
-  if (software_installed['qt5-base-ropieee'])        software_list['qt5-base-ropieee']=software_installed['qt5-base-ropieee'];
-  if (software_installed['qt5-declarative-ropieee']) software_list['qt5-declarative-ropieee']=software_installed['qt5-declarative-ropieee'];
-  if (software_installed['ropieee-remote'])          software_list['ropieee-remote']=software_installed['ropieee-remote'];
-  if (software_installed['ropieee-touchui'])         software_list['ropieee-touchui']=software_installed['ropieee-touchui'];
+  if (software_installed['qt5-base-ropieee'])             software_list['qt5-base-ropieee']             = software_installed['qt5-base-ropieee'];
+  if (software_installed['qt5-declarative-ropieee'])      software_list['qt5-declarative-ropieee']      = software_installed['qt5-declarative-ropieee'];
+  if (software_installed['qt5-graphicaleffects-ropieee']) software_list['qt5-graphicaleffects-ropieee'] = software_installed['qt5-graphicaleffects-ropieee'];
+  if (software_installed['qt5-quickcontrols2-ropieee'])   software_list['qt5-quickcontrols2-ropieee']   = software_installed['qt5-quickcontrols2-ropieee'];
+  if (software_installed['qt5-xmlpatterns-ropieee'])      software_list['qt5-xmlpatterns-ropieee']      = software_installed['qt5-xmlpatterns-ropieee'];
+  if (software_installed['ropieee-remote'])               software_list['ropieee-remote']               = software_installed['ropieee-remote'];
+  if (software_installed['ropieee-touchui'])              software_list['ropieee-touchui']              = software_installed['ropieee-touchui'];
 
   res.render('info', {
      title: 'Welcome',
