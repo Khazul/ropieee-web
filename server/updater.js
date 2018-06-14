@@ -62,6 +62,7 @@ module.exports = {
       console.log("debug: check_for_updates: " + state.update_interval);
       if (state.update_interval != 'manual') return;
       if (state.update_busy == true) return;
+      if (state.needs_reboot == true) return;
 
       const checker = spawn('/opt/RoPieee/lib/check_for_updates', ['']);
 
